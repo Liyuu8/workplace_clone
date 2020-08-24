@@ -33,6 +33,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
 flutter_icons:
   android: "launcher_icon"
@@ -74,3 +76,5 @@ flutter:
     - family: NotoSansJP_Regular
       fonts:
         - asset: assets/fonts/NotoSansJP-Regular.otf
+flutter_intl:
+  enabled: true
