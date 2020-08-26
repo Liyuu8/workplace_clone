@@ -43,6 +43,596 @@ class S {
     );
   }
 
+  /// `Change the way you work`
+  String get initScreenPageTitle1 {
+    return Intl.message(
+      'Change the way you work',
+      name: 'initScreenPageTitle1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Connect your team with familiar tools, helping everyone turn ideas into action.`
+  String get initScreenPageDetail1 {
+    return Intl.message(
+      'Connect your team with familiar tools, helping everyone turn ideas into action.',
+      name: 'initScreenPageDetail1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Share with your team`
+  String get initScreenPageTitle2 {
+    return Intl.message(
+      'Share with your team',
+      name: 'initScreenPageTitle2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Groups help you make decisions fast and keep your team on the same page.`
+  String get initScreenPageDetail2 {
+    return Intl.message(
+      'Groups help you make decisions fast and keep your team on the same page.',
+      name: 'initScreenPageDetail2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Keep up to data`
+  String get initScreenPageTitle3 {
+    return Intl.message(
+      'Keep up to data',
+      name: 'initScreenPageTitle3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `News Feed shows you what's important across your business as it happens.`
+  String get initScreenPageDetail3 {
+    return Intl.message(
+      'News Feed shows you what\'s important across your business as it happens.',
+      name: 'initScreenPageDetail3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Message instantly`
+  String get initScreenPageTitle4 {
+    return Intl.message(
+      'Message instantly',
+      name: 'initScreenPageTitle4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `With Workplace Chat you can reach any coworker with messaging, voice and video calling.`
+  String get initScreenPageDetail4 {
+    return Intl.message(
+      'With Workplace Chat you can reach any coworker with messaging, voice and video calling.',
+      name: 'initScreenPageDetail4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SIGN UP`
+  String get signUpButton {
+    return Intl.message(
+      'SIGN UP',
+      name: 'signUpButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `LOG IN`
+  String get logInButton {
+    return Intl.message(
+      'LOG IN',
+      name: 'logInButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter Your Business Email`
+  String get enterEmail {
+    return Intl.message(
+      'Enter Your Business Email',
+      name: 'enterEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your business email`
+  String get enterEmailInput {
+    return Intl.message(
+      'Your business email',
+      name: 'enterEmailInput',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CONTINUE`
+  String get continueButton {
+    return Intl.message(
+      'CONTINUE',
+      name: 'continueButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Check Your Email Inbox`
+  String get checkEmail {
+    return Intl.message(
+      'Check Your Email Inbox',
+      name: 'checkEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your code to get started. We've sent it to`
+  String get checkEmailDetail {
+    return Intl.message(
+      'Enter your code to get started. We\'ve sent it to',
+      name: 'checkEmailDetail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Can't find the email`
+  String get cantFindEmail {
+    return Intl.message(
+      'Can\'t find the email',
+      name: 'cantFindEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `RESEND THE EMAIL`
+  String get resendEmail {
+    return Intl.message(
+      'RESEND THE EMAIL',
+      name: 'resendEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `USE A DIFFERENT EMAIL ADDRESS`
+  String get useDifferentEmail {
+    return Intl.message(
+      'USE A DIFFERENT EMAIL ADDRESS',
+      name: 'useDifferentEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter Your Details`
+  String get enterYourDetails {
+    return Intl.message(
+      'Enter Your Details',
+      name: 'enterYourDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Full name`
+  String get fullName {
+    return Intl.message(
+      'Full name',
+      name: 'fullName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your full name`
+  String get fullNameInput {
+    return Intl.message(
+      'Enter your full name',
+      name: 'fullNameInput',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get password {
+    return Intl.message(
+      'Password',
+      name: 'password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter password`
+  String get passwordInput {
+    return Intl.message(
+      'Enter password',
+      name: 'passwordInput',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create a strong password with at least 8 characters. Mix numbers with uppercase and lowercase letters.`
+  String get passwordDetail {
+    return Intl.message(
+      'Create a strong password with at least 8 characters. Mix numbers with uppercase and lowercase letters.',
+      name: 'passwordDetail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Organization name`
+  String get organizationName {
+    return Intl.message(
+      'Organization name',
+      name: 'organizationName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter organization name`
+  String get organizationNameInput {
+    return Intl.message(
+      'Enter organization name',
+      name: 'organizationNameInput',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Organization size`
+  String get organizationSize {
+    return Intl.message(
+      'Organization size',
+      name: 'organizationSize',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Number of people`
+  String get organizationSizeInput {
+    return Intl.message(
+      'Number of people',
+      name: 'organizationSizeInput',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `0 to 49`
+  String get organizationSizeChoice1 {
+    return Intl.message(
+      '0 to 49',
+      name: 'organizationSizeChoice1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `50 to 99`
+  String get organizationSizeChoice2 {
+    return Intl.message(
+      '50 to 99',
+      name: 'organizationSizeChoice2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `100 to 499`
+  String get organizationSizeChoice3 {
+    return Intl.message(
+      '100 to 499',
+      name: 'organizationSizeChoice3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `500 to 4,999`
+  String get organizationSizeChoice4 {
+    return Intl.message(
+      '500 to 4,999',
+      name: 'organizationSizeChoice4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `5,000+`
+  String get organizationSizeChoice5 {
+    return Intl.message(
+      '5,000+',
+      name: 'organizationSizeChoice5',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter the number of people in your entire company or organization.`
+  String get organizationSizeDetail {
+    return Intl.message(
+      'Enter the number of people in your entire company or organization.',
+      name: 'organizationSizeDetail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Job title`
+  String get jobTitle {
+    return Intl.message(
+      'Job title',
+      name: 'jobTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose a job title`
+  String get jobTitleInput {
+    return Intl.message(
+      'Choose a job title',
+      name: 'jobTitleInput',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `C - Level`
+  String get jobTitleChoice1 {
+    return Intl.message(
+      'C - Level',
+      name: 'jobTitleChoice1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SVP / VP`
+  String get jobTitleChoice2 {
+    return Intl.message(
+      'SVP / VP',
+      name: 'jobTitleChoice2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Director`
+  String get jobTitleChoice3 {
+    return Intl.message(
+      'Director',
+      name: 'jobTitleChoice3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Manager`
+  String get jobTitleChoice4 {
+    return Intl.message(
+      'Manager',
+      name: 'jobTitleChoice4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Staff`
+  String get jobTitleChoice5 {
+    return Intl.message(
+      'Staff',
+      name: 'jobTitleChoice5',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Student / Intern`
+  String get jobTitleChoice6 {
+    return Intl.message(
+      'Student / Intern',
+      name: 'jobTitleChoice6',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `By creating your account, you agree to the Workplace Agreement on behalf of your organization and confirm that you have the authority to do so. And you agree to the Workplace Privacy, Acceptable Use and Cookies policies.`
+  String get createAccountDetail {
+    return Intl.message(
+      'By creating your account, you agree to the Workplace Agreement on behalf of your organization and confirm that you have the authority to do so. And you agree to the Workplace Privacy, Acceptable Use and Cookies policies.',
+      name: 'createAccountDetail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Creating account...`
+  String get createAccountProgressing {
+    return Intl.message(
+      'Creating account...',
+      name: 'createAccountProgressing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skip`
+  String get skipButton {
+    return Intl.message(
+      'Skip',
+      name: 'skipButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create Groups Inside`
+  String get createGroupsInside {
+    return Intl.message(
+      'Create Groups Inside',
+      name: 'createGroupsInside',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Groups are spaces within your Workplace where people can post ideas, share files and much more. Here are some suggestions.`
+  String get createGroupsInsideDetail {
+    return Intl.message(
+      'Groups are spaces within your Workplace where people can post ideas, share files and much more. Here are some suggestions.',
+      name: 'createGroupsInsideDetail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Company Announcements`
+  String get createGroupsInsideChoice1 {
+    return Intl.message(
+      'Company Announcements',
+      name: 'createGroupsInsideChoice1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Marketing team`
+  String get createGroupsInsideChoice2 {
+    return Intl.message(
+      'Marketing team',
+      name: 'createGroupsInsideChoice2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Company Social`
+  String get createGroupsInsideChoice3 {
+    return Intl.message(
+      'Company Social',
+      name: 'createGroupsInsideChoice3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Project Updates`
+  String get createGroupsInsideChoice4 {
+    return Intl.message(
+      'Project Updates',
+      name: 'createGroupsInsideChoice4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `General`
+  String get createGroupsInsideChoiceMain {
+    return Intl.message(
+      'General',
+      name: 'createGroupsInsideChoiceMain',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Created for you.`
+  String get createGroupsInsideChoiceMainDetail {
+    return Intl.message(
+      'Created for you.',
+      name: 'createGroupsInsideChoiceMainDetail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create Groups`
+  String get createGroupsButton {
+    return Intl.message(
+      'Create Groups',
+      name: 'createGroupsButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invite People to Join`
+  String get invitePeople {
+    return Intl.message(
+      'Invite People to Join',
+      name: 'invitePeople',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `It's best to add a few people you work with.`
+  String get invitePeopleDetail1 {
+    return Intl.message(
+      'It\'s best to add a few people you work with.',
+      name: 'invitePeopleDetail1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter someone's email`
+  String get invitePeopleInput {
+    return Intl.message(
+      'Enter someone\'s email',
+      name: 'invitePeopleInput',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Inviting people outside a verified or whitelisted email domain will show them your email address.`
+  String get invitePeopleDetail2 {
+    return Intl.message(
+      'Inviting people outside a verified or whitelisted email domain will show them your email address.',
+      name: 'invitePeopleDetail2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Done`
+  String get doneButton {
+    return Intl.message(
+      'Done',
+      name: 'doneButton',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Create a post...`
   String get createPostInput {
     return Intl.message(
@@ -448,16 +1038,6 @@ class S {
     return Intl.message(
       'Group Settings',
       name: 'groupSettings',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Done`
-  String get doneButton {
-    return Intl.message(
-      'Done',
-      name: 'doneButton',
       desc: '',
       args: [],
     );
