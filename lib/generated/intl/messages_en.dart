@@ -103,6 +103,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "live" : MessageLookupByLibrary.simpleMessage("Live"),
     "logInButton" : MessageLookupByLibrary.simpleMessage("LOG IN"),
     "logOut" : MessageLookupByLibrary.simpleMessage("Log Out"),
+    "loggingInProgressing" : MessageLookupByLibrary.simpleMessage("Logging in..."),
     "member" : MessageLookupByLibrary.simpleMessage("member"),
     "membersOf" : MessageLookupByLibrary.simpleMessage("Members of "),
     "menu" : MessageLookupByLibrary.simpleMessage("Menu"),

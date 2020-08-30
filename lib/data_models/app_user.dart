@@ -4,7 +4,6 @@ class AppUser {
   final String userId;
   final String fullName;
   final String email;
-  final String password;
   final String photoUrl;
   final String bio;
 
@@ -14,7 +13,6 @@ class AppUser {
     @required this.userId,
     @required this.fullName,
     @required this.email,
-    @required this.password,
     @required this.photoUrl,
     @required this.bio,
   });
@@ -23,14 +21,12 @@ class AppUser {
     String userId,
     String fullName,
     String email,
-    String password,
     String photoUrl,
     String bio,
   }) {
     if ((userId == null || identical(userId, this.userId)) &&
         (fullName == null || identical(fullName, this.fullName)) &&
         (email == null || identical(email, this.email)) &&
-        (password == null || identical(password, this.password)) &&
         (photoUrl == null || identical(photoUrl, this.photoUrl)) &&
         (bio == null || identical(bio, this.bio))) {
       return this;
@@ -40,7 +36,6 @@ class AppUser {
       userId: userId ?? this.userId,
       fullName: fullName ?? this.fullName,
       email: email ?? this.email,
-      password: password ?? this.password,
       photoUrl: photoUrl ?? this.photoUrl,
       bio: bio ?? this.bio,
     );
@@ -48,7 +43,7 @@ class AppUser {
 
   @override
   String toString() {
-    return 'AppUser{userId: $userId, fullName: $fullName, email: $email, password: $password, photoUrl: $photoUrl, bio: $bio}';
+    return 'AppUser{userId: $userId, fullName: $fullName, email: $email, photoUrl: $photoUrl, bio: $bio}';
   }
 
   @override
@@ -59,7 +54,6 @@ class AppUser {
           userId == other.userId &&
           fullName == other.fullName &&
           email == other.email &&
-          password == other.password &&
           photoUrl == other.photoUrl &&
           bio == other.bio);
 
@@ -68,7 +62,6 @@ class AppUser {
       userId.hashCode ^
       fullName.hashCode ^
       email.hashCode ^
-      password.hashCode ^
       photoUrl.hashCode ^
       bio.hashCode;
 
@@ -77,7 +70,6 @@ class AppUser {
       userId: map['userId'] as String,
       fullName: map['fullName'] as String,
       email: map['email'] as String,
-      password: map['password'] as String,
       photoUrl: map['photoUrl'] as String,
       bio: map['bio'] as String,
     );
@@ -89,7 +81,6 @@ class AppUser {
       'userId': this.userId,
       'fullName': this.fullName,
       'email': this.email,
-      'password': this.password,
       'photoUrl': this.photoUrl,
       'bio': this.bio,
     } as Map<String, dynamic>;

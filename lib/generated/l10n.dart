@@ -483,6 +483,16 @@ class S {
     );
   }
 
+  /// `Logging in...`
+  String get loggingInProgressing {
+    return Intl.message(
+      'Logging in...',
+      name: 'loggingInProgressing',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Skip`
   String get skipButton {
     return Intl.message(

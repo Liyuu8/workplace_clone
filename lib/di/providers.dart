@@ -8,7 +8,7 @@ import 'package:workplace_clone/models/db/database_manager.dart';
 import 'package:workplace_clone/models/repositories/user_repository.dart';
 
 // view models
-import 'package:workplace_clone/view_models/login_view_model.dart';
+import 'package:workplace_clone/view_models/welcome_view_model.dart';
 
 List<SingleChildWidget> globalProviders = [
   ...independentModels,
@@ -29,8 +29,8 @@ List<SingleChildWidget> dependentModels = [
 ];
 
 List<SingleChildWidget> viewModels = [
-  ChangeNotifierProvider<LoginViewModel>(
-    create: (context) => LoginViewModel(
+  ChangeNotifierProvider<WelcomeViewModel>(
+    create: (context) => WelcomeViewModel(
       userRepository: context.read<UserRepository>(),
     ),
   )
