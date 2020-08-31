@@ -6,13 +6,15 @@ import 'package:workplace_clone/generated/l10n.dart';
 // styles
 import 'package:workplace_clone/styles.dart';
 
+// utils
+import 'package:workplace_clone/utils/constants.dart';
+
 // components
 import 'package:workplace_clone/view/welcome/components/transparent_button.dart';
 import 'package:workplace_clone/view/welcome/components/white_button.dart';
 
 // screens
-import 'package:workplace_clone/view/welcome/screens/login_screen.dart';
-import 'package:workplace_clone/view/welcome/screens/sign_up_screen.dart';
+import 'package:workplace_clone/view/welcome/screens/entry_email_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   @override
@@ -63,14 +65,18 @@ class WelcomeScreen extends StatelessWidget {
   _openSignUpScreen(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => SignUpScreen()),
+      MaterialPageRoute(
+        builder: (_) => EntryEmailScreen(mode: SignUpOrLogInMode.SIGN_UP),
+      ),
     );
   }
 
   _openLoginScreen(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => LoginScreen()),
+      MaterialPageRoute(
+        builder: (_) => EntryEmailScreen(mode: SignUpOrLogInMode.LOG_IN),
+      ),
     );
   }
 }

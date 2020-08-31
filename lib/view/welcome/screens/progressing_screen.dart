@@ -4,6 +4,9 @@ import 'package:provider/provider.dart';
 // generated
 import 'package:workplace_clone/generated/l10n.dart';
 
+// utils
+import 'package:workplace_clone/utils/constants.dart';
+
 // screens
 import 'package:workplace_clone/view/common/screens/home_screen.dart';
 
@@ -13,12 +16,19 @@ import 'package:workplace_clone/view/welcome/components/blue_button.dart';
 // view models
 import 'package:workplace_clone/view_models/welcome_view_model.dart';
 
-class SignUpProgressingScreen extends StatelessWidget {
+class ProgressingScreen extends StatelessWidget {
+  final SignUpOrLogInMode mode;
+  ProgressingScreen({@required this.mode});
+
   @override
   Widget build(BuildContext context) {
     final welcomeViewModel =
         Provider.of<WelcomeViewModel>(context, listen: false);
-    Future(() => welcomeViewModel.signUpAndCreateOrganization());
+    Future(
+      () => mode == SignUpOrLogInMode.SIGN_UP
+          ? welcomeViewModel.signUpAndCreateOrganization()
+          : welcomeViewModel.logIn(),
+    );
 
     return Scaffold(
       body: Consumer<WelcomeViewModel>(
@@ -30,7 +40,9 @@ class SignUpProgressingScreen extends StatelessWidget {
                   Center(child: CircularProgressIndicator()),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: Text(S.of(context).createAccountProgressing),
+                    child: mode == SignUpOrLogInMode.SIGN_UP
+                        ? Text(S.of(context).createAccountProgressing)
+                        : Text(S.of(context).loggingInProgressing),
                   ),
                 ],
               )
@@ -43,7 +55,9 @@ class SignUpProgressingScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Center(
-                          child: Text('Creating your account is Successful!'),
+                          child: mode == SignUpOrLogInMode.SIGN_UP
+                              ? Text('Creating your account is Successful!')
+                              : Text('Logging in your account is Successful!'),
                         ),
                         SizedBox(height: 16.0),
                         BlueButton(
@@ -65,7 +79,9 @@ class SignUpProgressingScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Center(
-                          child: Text('Creating your account is failed.'),
+                          child: mode == SignUpOrLogInMode.SIGN_UP
+                              ? Text('Creating your account is failed.')
+                              : Text('Logging in your account is failed.'),
                         ),
                         SizedBox(height: 16.0),
                         BlueButton(

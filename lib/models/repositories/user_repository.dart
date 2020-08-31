@@ -112,7 +112,7 @@ class UserRepository {
     }
   }
 
-  Future<bool> signIn(String email, String password) async {
+  Future<bool> logIn(String email, String password) async {
     try {
       final userCredential = await _auth.signInWithEmailAndPassword(
         email: email,
@@ -125,6 +125,7 @@ class UserRepository {
       }
 
       // アプリ全体で使用可能にするためにstatic変数に格納する
+      usersOrganization = await dbManager.getOrganizationByUserId(user.uid);
       currentUser = await dbManager.getUserById(user.uid);
       return true;
     } catch (e) {

@@ -483,16 +483,6 @@ class S {
     );
   }
 
-  /// `Logging in...`
-  String get loggingInProgressing {
-    return Intl.message(
-      'Logging in...',
-      name: 'loggingInProgressing',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Skip`
   String get skipButton {
     return Intl.message(
@@ -638,6 +628,46 @@ class S {
     return Intl.message(
       'Done',
       name: 'doneButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter Your Password`
+  String get enterPassword {
+    return Intl.message(
+      'Enter Your Password',
+      name: 'enterPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get enterPasswordInput {
+    return Intl.message(
+      'Password',
+      name: 'enterPasswordInput',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Logging in...`
+  String get loggingInProgressing {
+    return Intl.message(
+      'Logging in...',
+      name: 'loggingInProgressing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in failed.`
+  String get signInFailed {
+    return Intl.message(
+      'Sign in failed.',
+      name: 'signInFailed',
       desc: '',
       args: [],
     );

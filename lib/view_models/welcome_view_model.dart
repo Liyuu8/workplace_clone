@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+// data models
+import 'package:workplace_clone/data_models/app_user.dart';
+import 'package:workplace_clone/data_models/organization.dart';
+
 // models
 import 'package:workplace_clone/models/repositories/user_repository.dart';
 
@@ -20,6 +24,9 @@ class WelcomeViewModel extends ChangeNotifier {
   String organizationSize = '';
   String jobTitle = '';
   String organizationId = '';
+
+  AppUser get currentUser => UserRepository.currentUser;
+  Organization get usersOrganization => UserRepository.usersOrganization;
 
   Future<bool> isSignIn() async {
     return await userRepository.isSignIn();
@@ -56,11 +63,11 @@ class WelcomeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> signIn() async {
+  Future<void> logIn() async {
     isProgressing = true;
     notifyListeners();
 
-    isSuccessful = await userRepository.signIn(email, password);
+    isSuccessful = await userRepository.logIn(email, password);
 
     isProgressing = false;
     notifyListeners();
@@ -108,4 +115,11 @@ class WelcomeViewModel extends ChangeNotifier {
         organizationSize,
         jobTitle
       ].contains('');
+
+  updatePasswordField(String updatedPassword) {
+    password = updatedPassword;
+    notifyListeners();
+  }
+
+  bool isPasswordEmpty() => password == '';
 }

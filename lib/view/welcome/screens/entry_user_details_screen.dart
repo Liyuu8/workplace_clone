@@ -16,17 +16,17 @@ import 'package:workplace_clone/view/welcome/components/blue_button.dart';
 import 'package:workplace_clone/view/welcome/components/text_field_by_bottom_sheet.dart';
 
 // screens
-import 'package:workplace_clone/view/welcome/screens/sign_up_progressing_screen.dart';
+import 'package:workplace_clone/view/welcome/screens/progressing_screen.dart';
 
 // view models
 import 'package:workplace_clone/view_models/welcome_view_model.dart';
 
-class UserEntryDetailsScreen extends StatefulWidget {
+class EntryUserDetailsScreen extends StatefulWidget {
   @override
-  _UserEntryDetailsScreenState createState() => _UserEntryDetailsScreenState();
+  _EntryUserDetailsScreenState createState() => _EntryUserDetailsScreenState();
 }
 
-class _UserEntryDetailsScreenState extends State<UserEntryDetailsScreen> {
+class _EntryUserDetailsScreenState extends State<EntryUserDetailsScreen> {
   bool _showPassword = false;
   TextEditingController _fullNameEditController = TextEditingController();
   TextEditingController _passwordEditController = TextEditingController();
@@ -190,7 +190,7 @@ class _UserEntryDetailsScreenState extends State<UserEntryDetailsScreen> {
                 builder: (context, model, child) => BlueButton(
                   title: S.of(context).continueButton,
                   isContentEmpty: model.isUserEntryDetailsEmpty(),
-                  onPressed: () => _openSignUpProcessingScreen(context),
+                  onPressed: () => _openProcessingScreen(context),
                 ),
               ),
             ],
@@ -205,10 +205,12 @@ class _UserEntryDetailsScreenState extends State<UserEntryDetailsScreen> {
     welcomeViewModel.updateUserEntryDetails(entryText, fieldLabel);
   }
 
-  _openSignUpProcessingScreen(BuildContext context) {
+  _openProcessingScreen(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => SignUpProgressingScreen()),
+      MaterialPageRoute(
+        builder: (_) => ProgressingScreen(mode: SignUpOrLogInMode.SIGN_UP),
+      ),
     );
   }
 }
