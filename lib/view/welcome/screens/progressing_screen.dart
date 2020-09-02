@@ -4,6 +4,9 @@ import 'package:provider/provider.dart';
 // generated
 import 'package:workplace_clone/generated/l10n.dart';
 
+// repositories
+import 'package:workplace_clone/models/repositories/user_repository.dart';
+
 // utils
 import 'package:workplace_clone/utils/constants.dart';
 
@@ -32,7 +35,8 @@ class ProgressingScreen extends StatelessWidget {
 
     return Scaffold(
       body: Consumer<WelcomeViewModel>(
-        builder: (context, model, child) => model.isProgressing
+        builder: (context, model, child) => model.status ==
+                Status.Authenticating
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -46,7 +50,7 @@ class ProgressingScreen extends StatelessWidget {
                   ),
                 ],
               )
-            : model.isSuccessful
+            : model.status == Status.Authenticated
                 // TODO: 以下、自動で画面遷移を実行したい...
                 ? Padding(
                     padding: const EdgeInsets.all(24.0),

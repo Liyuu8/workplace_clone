@@ -1,4 +1,6 @@
-# workplace_clone
+# workplaceClone
+
+[![Codemagic build status](https://api.codemagic.io/apps/5f3d5a901bf6ee3c5a1247b9/5f3d5a901bf6ee3c5a1247b8/status_badge.svg)](https://codemagic.io/apps/5f3d5a901bf6ee3c5a1247b9/5f3d5a901bf6ee3c5a1247b8/latest_build)
 
 A new Flutter application.
 

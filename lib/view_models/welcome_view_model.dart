@@ -14,79 +14,89 @@ class WelcomeViewModel extends ChangeNotifier {
   final UserRepository userRepository;
   WelcomeViewModel({this.userRepository});
 
-  bool isProgressing = false;
-  bool isSuccessful = false;
+  String _organizationId = '';
+  String get organizationId => _organizationId;
 
-  String email = '';
-  String fullName = '';
-  String password = '';
-  String organizationName = '';
-  String organizationSize = '';
-  String jobTitle = '';
-  String organizationId = '';
+  Organization _usersOrganization;
+  Organization get usersOrganization => _usersOrganization;
 
-  AppUser get currentUser => UserRepository.currentUser;
-  Organization get usersOrganization => UserRepository.usersOrganization;
+  AppUser _currentUser;
+  AppUser get currentUser => _currentUser;
+
+  Status _status = Status.Uninitialized;
+  Status get status => _status;
+
+  onUserRepositoryUpdated(UserRepository userRepository) {
+    _usersOrganization = userRepository.usersOrganization;
+    _currentUser = userRepository.currentUser;
+    _status = userRepository.status;
+    print('onUserRepositoryUpdated: status is $_status');
+    notifyListeners();
+  }
+
+  String _email = '';
+  String get email => _email;
+
+  String _fullName = '';
+  String get fullName => _fullName;
+
+  String _password = '';
+  String get password => _password;
+
+  String _organizationName = '';
+  String get organizationName => _organizationName;
+
+  String _organizationSize = '';
+  String get organizationSize => _organizationSize;
+
+  String _jobTitle = '';
+  String get jobTitle => _jobTitle;
 
   Future<bool> isSignIn() async {
     return await userRepository.isSignIn();
   }
 
   Future<void> signUpAndCreateOrganization() async {
-    isProgressing = true;
-    notifyListeners();
-
-    isSuccessful = await userRepository.signUpAndCreateOrganization(
-      email,
-      fullName,
-      password,
-      organizationName,
-      organizationSize,
-      jobTitle,
+    userRepository.startProgressing();
+    await userRepository.signUpAndCreateOrganization(
+      _email,
+      _fullName,
+      _password,
+      _organizationName,
+      _organizationSize,
+      _jobTitle,
     );
-
-    isProgressing = false;
-    notifyListeners();
   }
 
   Future<void> signUpIntoExistingOrganization() async {
-    isProgressing = true;
-    notifyListeners();
-
-    isSuccessful = await userRepository.signUpIntoExistingOrganization(
-      email,
-      password,
-      organizationId,
+    userRepository.startProgressing();
+    await userRepository.signUpIntoExistingOrganization(
+      _email,
+      _fullName,
+      _password,
+      _organizationId,
     );
-
-    isProgressing = false;
-    notifyListeners();
   }
 
   Future<void> logIn() async {
-    isProgressing = true;
-    notifyListeners();
-
-    isSuccessful = await userRepository.logIn(email, password);
-
-    isProgressing = false;
-    notifyListeners();
+    userRepository.startProgressing();
+    await userRepository.logIn(_email, _password);
   }
 
   updateEmailField(String updatedEmail) {
-    email = updatedEmail;
+    _email = updatedEmail;
     notifyListeners();
   }
 
-  bool isEmailEmpty() => email == '';
+  bool isEmailEmpty() => _email == '';
 
   updateTextFieldByBottomSheet(
     String content,
     BottomSheetContentType contentType,
   ) {
     contentType == BottomSheetContentType.ORGANIZATION_SIZE
-        ? organizationSize = content
-        : jobTitle = content;
+        ? _organizationSize = content
+        : _jobTitle = content;
     notifyListeners();
   }
 
@@ -96,30 +106,34 @@ class WelcomeViewModel extends ChangeNotifier {
   ) {
     switch (fieldLabel) {
       case UserDetailEntryFieldLabel.FULL_NAME:
-        fullName = entryText;
+        _fullName = entryText;
         break;
       case UserDetailEntryFieldLabel.PASSWORD:
-        password = entryText;
+        _password = entryText;
         break;
       case UserDetailEntryFieldLabel.ORGANIZATION_NAME:
-        organizationName = entryText;
+        _organizationName = entryText;
         break;
     }
     notifyListeners();
   }
 
   bool isUserEntryDetailsEmpty() => [
-        fullName,
-        password,
-        organizationName,
-        organizationSize,
-        jobTitle
+        _fullName,
+        _password,
+        _organizationName,
+        _organizationSize,
+        _jobTitle
       ].contains('');
 
   updatePasswordField(String updatedPassword) {
-    password = updatedPassword;
+    _password = updatedPassword;
     notifyListeners();
   }
 
-  bool isPasswordEmpty() => password == '';
+  bool isPasswordEmpty() => _password == '';
+
+  Future<void> signOut() async {
+    userRepository.signOut();
+  }
 }

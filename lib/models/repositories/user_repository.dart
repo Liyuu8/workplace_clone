@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 // data models
@@ -8,24 +9,57 @@ import 'package:workplace_clone/data_models/organization.dart';
 // db
 import 'package:workplace_clone/models/db/database_manager.dart';
 
-class UserRepository {
+enum Status { Uninitialized, Authenticated, Authenticating, Unauthenticated }
+
+class UserRepository extends ChangeNotifier {
+  final FirebaseAuth auth;
   final DatabaseManager dbManager;
-  UserRepository({this.dbManager});
+  UserRepository({this.auth, this.dbManager}) {
+    auth.authStateChanges().listen(onAuthStateChanged);
+  }
 
-  static Organization usersOrganization;
-  static AppUser currentUser;
+  Organization _usersOrganization;
+  Organization get usersOrganization => _usersOrganization;
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  AppUser _currentUser;
+  AppUser get currentUser => _currentUser;
+
+  Status _status = Status.Uninitialized;
+  Status get status => _status;
+
+  startProgressing() {
+    _status = Status.Authenticating;
+    notifyListeners();
+  }
+
+  Future<void> onAuthStateChanged(User user) async {
+    if (user == null) {
+      _usersOrganization = null;
+      _currentUser = null;
+      _status = Status.Unauthenticated;
+      notifyListeners();
+      return;
+    }
+
+    if (await dbManager.isUserExisted(user)) {
+      _currentUser ??= await dbManager.getUserById(user.uid);
+      _usersOrganization ??= await dbManager.getOrganizationByUserId(user.uid);
+      _status = Status.Authenticated;
+      notifyListeners();
+    }
+  }
 
   Future<bool> isSignIn() async {
-    if (_auth.currentUser != null) {
-      currentUser = await dbManager.getUserById(_auth.currentUser.uid);
+    if (auth.currentUser != null) {
+      final userId = auth.currentUser.uid;
+      _currentUser = await dbManager.getUserById(userId);
+      _usersOrganization = await dbManager.getOrganizationByUserId(userId);
       return true;
     }
     return false;
   }
 
-  Future<bool> signUpAndCreateOrganization(
+  Future<void> signUpAndCreateOrganization(
     String email,
     String fullName,
     String password,
@@ -34,7 +68,7 @@ class UserRepository {
     String jobTitle,
   ) async {
     try {
-      final userCredential = await _auth.createUserWithEmailAndPassword(
+      final userCredential = await auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -63,10 +97,11 @@ class UserRepository {
         newOrganization.organizationId,
       );
 
-      // アプリ全体で使用可能とするためにstatic変数に格納する
-      usersOrganization =
+      _usersOrganization =
           await dbManager.getOrganizationById(newOrganization.organizationId);
-      currentUser = await dbManager.getUserById(newUser.uid);
+      _currentUser = await dbManager.getUserById(newUser.uid);
+      _status = Status.Authenticated;
+      notifyListeners();
 
       return true;
     } catch (e) {
@@ -75,36 +110,39 @@ class UserRepository {
     }
   }
 
-  Future<bool> signUpIntoExistingOrganization(
+  Future<void> signUpIntoExistingOrganization(
     String email,
+    String fullName,
     String password,
     String organizationId,
   ) async {
     try {
-      final userCredential = await _auth.createUserWithEmailAndPassword(
+      final userCredential = await auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-      final User user = userCredential.user;
+      final User newUser = userCredential.user;
 
-      if (user == null) {
+      if (newUser == null) {
         return false;
       }
 
       await dbManager.insertUser(
         AppUser(
-          userId: user.uid,
-          fullName: user.displayName,
-          photoUrl: user.photoURL,
-          email: user.email,
+          userId: newUser.uid,
+          fullName: fullName,
+          photoUrl: newUser.photoURL,
+          email: newUser.email,
           bio: '',
         ),
         organizationId,
       );
 
-      // アプリ全体で使用可能とするためにstatic変数に格納する
-      usersOrganization = await dbManager.getOrganizationById(organizationId);
-      currentUser = await dbManager.getUserById(user.uid);
+      _usersOrganization = await dbManager.getOrganizationById(organizationId);
+      _currentUser = await dbManager.getUserById(newUser.uid);
+      _status = Status.Authenticated;
+      notifyListeners();
+
       return true;
     } catch (e) {
       print('sign up error caught: ${e.toString()}');
@@ -112,9 +150,9 @@ class UserRepository {
     }
   }
 
-  Future<bool> logIn(String email, String password) async {
+  Future<void> logIn(String email, String password) async {
     try {
-      final userCredential = await _auth.signInWithEmailAndPassword(
+      final userCredential = await auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -124,13 +162,14 @@ class UserRepository {
         return false;
       }
 
-      // アプリ全体で使用可能にするためにstatic変数に格納する
-      usersOrganization = await dbManager.getOrganizationByUserId(user.uid);
-      currentUser = await dbManager.getUserById(user.uid);
       return true;
     } catch (e) {
       print('sign in error caught: ${e.toString()}');
       return false;
     }
+  }
+
+  Future<void> signOut() async {
+    auth.signOut();
   }
 }

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -23,15 +24,20 @@ List<SingleChildWidget> independentModels = [
 ];
 
 List<SingleChildWidget> dependentModels = [
-  ProxyProvider<DatabaseManager, UserRepository>(
-    update: (_, dbManager, repository) => UserRepository(dbManager: dbManager),
+  ChangeNotifierProvider<UserRepository>(
+    create: (context) => UserRepository(
+      auth: FirebaseAuth.instance,
+      dbManager: context.read<DatabaseManager>(),
+    ),
   ),
 ];
 
 List<SingleChildWidget> viewModels = [
-  ChangeNotifierProvider<WelcomeViewModel>(
+  ChangeNotifierProxyProvider<UserRepository, WelcomeViewModel>(
     create: (context) => WelcomeViewModel(
       userRepository: context.read<UserRepository>(),
     ),
+    update: (_, repository, viewModel) =>
+        viewModel..onUserRepositoryUpdated(repository),
   )
 ];
