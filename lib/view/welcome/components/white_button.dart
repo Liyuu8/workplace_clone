@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-// styles
-import 'package:workplace_clone/styles.dart';
+// utils
+import 'package:workplace_clone/utils/styles.dart';
 
 class WhiteButton extends StatelessWidget {
   final String title;

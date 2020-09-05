@@ -5,11 +5,10 @@ import 'package:provider/provider.dart';
 // generated
 import 'package:workplace_clone/generated/l10n.dart';
 
-// styles
-import 'package:workplace_clone/styles.dart';
-
 // utils
 import 'package:workplace_clone/utils/constants.dart';
+import 'package:workplace_clone/utils/keys.dart';
+import 'package:workplace_clone/utils/styles.dart';
 
 // components
 import 'package:workplace_clone/view/welcome/components/blue_button.dart';
@@ -84,6 +83,7 @@ class _EntryUserDetailsScreenState extends State<EntryUserDetailsScreen> {
                 style: kWelcomeDetailsLabelTextStyle,
               ),
               TextField(
+                key: fullNameFieldKey,
                 controller: _fullNameEditController,
                 style: kWelcomeDetailsInputTextStyle,
                 decoration: InputDecoration(
@@ -96,6 +96,7 @@ class _EntryUserDetailsScreenState extends State<EntryUserDetailsScreen> {
                 style: kWelcomeDetailsLabelTextStyle,
               ),
               TextField(
+                key: passwordFieldKey,
                 controller: _passwordEditController,
                 style: kWelcomeDetailsInputTextStyle,
                 decoration: InputDecoration(
@@ -125,6 +126,7 @@ class _EntryUserDetailsScreenState extends State<EntryUserDetailsScreen> {
                 style: kWelcomeDetailsLabelTextStyle,
               ),
               TextField(
+                key: organizationNameFieldKey,
                 controller: _organizationNameEditController,
                 style: kWelcomeDetailsInputTextStyle,
                 decoration: InputDecoration(

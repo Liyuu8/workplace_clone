@@ -5,11 +5,10 @@ import 'package:provider/provider.dart';
 // generated
 import 'package:workplace_clone/generated/l10n.dart';
 
-// styles
-import 'package:workplace_clone/styles.dart';
-
 // utils
 import 'package:workplace_clone/utils/constants.dart';
+import 'package:workplace_clone/utils/keys.dart';
+import 'package:workplace_clone/utils/styles.dart';
 
 // components
 import 'package:workplace_clone/view/welcome/components/blue_button.dart';
@@ -60,6 +59,7 @@ class _EntryPasswordScreenState extends State<EntryPasswordScreen> {
             ),
             SizedBox(height: 28.0),
             TextField(
+              key: passwordFieldKey,
               controller: _passwordEditController,
               style: kWelcomeInputTextStyle,
               textAlign: TextAlign.center,

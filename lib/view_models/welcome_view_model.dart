@@ -52,36 +52,27 @@ class WelcomeViewModel extends ChangeNotifier {
   String _jobTitle = '';
   String get jobTitle => _jobTitle;
 
-  Future<bool> isSignIn() async {
-    return await userRepository.isSignIn();
-  }
+  Future<bool> isSignIn() async => await userRepository.isSignIn();
 
-  Future<void> signUpAndCreateOrganization() async {
-    userRepository.startProgressing();
-    await userRepository.signUpAndCreateOrganization(
-      _email,
-      _fullName,
-      _password,
-      _organizationName,
-      _organizationSize,
-      _jobTitle,
-    );
-  }
+  Future<void> signUpAndCreateOrganization() async =>
+      await userRepository.signUpAndCreateOrganization(
+        _email,
+        _fullName,
+        _password,
+        _organizationName,
+        _organizationSize,
+        _jobTitle,
+      );
 
-  Future<void> signUpIntoExistingOrganization() async {
-    userRepository.startProgressing();
-    await userRepository.signUpIntoExistingOrganization(
-      _email,
-      _fullName,
-      _password,
-      _organizationId,
-    );
-  }
+  Future<void> signUpIntoExistingOrganization() async =>
+      await userRepository.signUpIntoExistingOrganization(
+        _email,
+        _fullName,
+        _password,
+        _organizationId,
+      );
 
-  Future<void> logIn() async {
-    userRepository.startProgressing();
-    await userRepository.logIn(_email, _password);
-  }
+  Future<void> logIn() async => await userRepository.logIn(_email, _password);
 
   updateEmailField(String updatedEmail) {
     _email = updatedEmail;
@@ -133,7 +124,5 @@ class WelcomeViewModel extends ChangeNotifier {
 
   bool isPasswordEmpty() => _password == '';
 
-  Future<void> signOut() async {
-    userRepository.signOut();
-  }
+  Future<void> signOut() async => userRepository.signOut();
 }

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-// styles
-import 'package:workplace_clone/styles.dart';
-
 // utils
 import 'package:workplace_clone/utils/constants.dart';
+import 'package:workplace_clone/utils/styles.dart';
 
 // view models
 import 'package:workplace_clone/view_models/welcome_view_model.dart';

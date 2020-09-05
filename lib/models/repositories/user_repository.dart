@@ -27,8 +27,18 @@ class UserRepository extends ChangeNotifier {
   Status _status = Status.Uninitialized;
   Status get status => _status;
 
-  startProgressing() {
+  _startProgressing() {
     _status = Status.Authenticating;
+    notifyListeners();
+  }
+
+  _finishProgressingWithSuccess() {
+    _status = Status.Authenticated;
+    notifyListeners();
+  }
+
+  _finishProgressingWithFailure() {
+    _status = Status.Unauthenticated;
     notifyListeners();
   }
 
@@ -59,7 +69,7 @@ class UserRepository extends ChangeNotifier {
     return false;
   }
 
-  Future<void> signUpAndCreateOrganization(
+  Future<bool> signUpAndCreateOrganization(
     String email,
     String fullName,
     String password,
@@ -68,6 +78,8 @@ class UserRepository extends ChangeNotifier {
     String jobTitle,
   ) async {
     try {
+      _startProgressing();
+
       final userCredential = await auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
@@ -100,23 +112,26 @@ class UserRepository extends ChangeNotifier {
       _usersOrganization =
           await dbManager.getOrganizationById(newOrganization.organizationId);
       _currentUser = await dbManager.getUserById(newUser.uid);
-      _status = Status.Authenticated;
-      notifyListeners();
 
+      _finishProgressingWithSuccess();
       return true;
     } catch (e) {
       print('sign up error caught: ${e.toString()}');
+
+      _finishProgressingWithFailure();
       return false;
     }
   }
 
-  Future<void> signUpIntoExistingOrganization(
+  Future<bool> signUpIntoExistingOrganization(
     String email,
     String fullName,
     String password,
     String organizationId,
   ) async {
     try {
+      _startProgressing();
+
       final userCredential = await auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
@@ -140,18 +155,21 @@ class UserRepository extends ChangeNotifier {
 
       _usersOrganization = await dbManager.getOrganizationById(organizationId);
       _currentUser = await dbManager.getUserById(newUser.uid);
-      _status = Status.Authenticated;
-      notifyListeners();
 
+      _finishProgressingWithSuccess();
       return true;
     } catch (e) {
       print('sign up error caught: ${e.toString()}');
+
+      _finishProgressingWithFailure();
       return false;
     }
   }
 
-  Future<void> logIn(String email, String password) async {
+  Future<bool> logIn(String email, String password) async {
     try {
+      _startProgressing();
+
       final userCredential = await auth.signInWithEmailAndPassword(
         email: email,
         password: password,
@@ -162,9 +180,15 @@ class UserRepository extends ChangeNotifier {
         return false;
       }
 
+      _currentUser = await dbManager.getUserById(user.uid);
+      _usersOrganization = await dbManager.getOrganizationByUserId(user.uid);
+
+      _finishProgressingWithSuccess();
       return true;
     } catch (e) {
       print('sign in error caught: ${e.toString()}');
+
+      _finishProgressingWithFailure();
       return false;
     }
   }

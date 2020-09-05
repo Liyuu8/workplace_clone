@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 // generated
 import 'package:workplace_clone/generated/l10n.dart';
 
-// styles
-import 'package:workplace_clone/styles.dart';
-
 // utils
 import 'package:workplace_clone/utils/constants.dart';
+import 'package:workplace_clone/utils/styles.dart';
 
 // components
 import 'package:workplace_clone/view/welcome/components/transparent_button.dart';
