@@ -78,7 +78,7 @@ class _EntryEmailScreenState extends State<EntryEmailScreen> {
                     ? _openEntryUserDetailsScreen(context)
                     : _openEntryPasswordScreen(context),
               ),
-            )
+            ),
           ],
         ),
       ),

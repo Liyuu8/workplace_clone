@@ -6,14 +6,24 @@ const kRegularFont = 'NotoSansJP_Regular';
 
 const kWorkplaceMainColor = 0xFF373E4C;
 
-// Welcome
-const kWelcomeButtonTextStyle = TextStyle(
+const kButtonTextStyle = TextStyle(
   fontFamily: kRegularFont,
-  fontSize: 15.0,
+  fontSize: 20.0,
 );
+const kFlatTextStyle = TextStyle(
+  fontFamily: kMediumFont,
+  fontSize: 18.0,
+  color: Colors.blueAccent,
+);
+
+// Welcome
 const kWelcomeLabelTextStyle = TextStyle(
   fontFamily: kBoldFont,
   fontSize: 26.0,
+);
+const kWelcomeDetailTextStyle = TextStyle(
+  fontFamily: kBoldFont,
+  fontSize: 18.0,
 );
 const kWelcomeInputTextStyle = TextStyle(
   fontFamily: kRegularFont,
@@ -39,4 +49,13 @@ const kWelcomeDetailsInputEmptyTextStyle = TextStyle(
 const kWelcomeDetailsBottomSheetTextStyle = TextStyle(
   fontFamily: kRegularFont,
   fontSize: 19.0,
+);
+const kWelcomeChoiceLabelTextStyle = TextStyle(
+  fontFamily: kBoldFont,
+  fontSize: 18.0,
+);
+const kWelcomeInvitePeopleDetailTextStyle = TextStyle(
+  fontFamily: kBoldFont,
+  fontSize: 14.0,
+  color: Colors.grey,
 );

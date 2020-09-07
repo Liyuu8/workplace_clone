@@ -12,8 +12,8 @@ class WhiteButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FlatButton(
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16.0),
-        child: Text(title, style: kWelcomeButtonTextStyle),
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
+        child: Text(title, style: kButtonTextStyle),
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(6.0),

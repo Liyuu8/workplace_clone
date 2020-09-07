@@ -11,8 +11,8 @@ import 'package:workplace_clone/view/notification/pages/notification_page.dart';
 
 // screens
 import 'package:workplace_clone/view/chat/screens/chat_screen.dart';
-import 'package:workplace_clone/view/group/screens/new_group_screen.dart';
 import 'package:workplace_clone/view/search/screens/search_screen.dart';
+import 'package:workplace_clone/view/welcome/screens/create_groups_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Image.asset('assets/images/logo.png', height: 120.0),
+        title: Image.asset('assets/images/logo.png', height: 110.0),
         bottom: TabBar(
           controller: _tabController,
           tabs: _tabIcons.map((tabIcon) => Tab(icon: tabIcon)).toList(),
@@ -105,7 +105,8 @@ class _HomeScreenState extends State<HomeScreen>
   _openNewGroupScreen(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => NewGroupScreen()),
+      // TODO: MaterialPageRoute(builder: (_) => NewGroupScreen()),
+      MaterialPageRoute(builder: (_) => CreateGroupsScreen()),
     );
   }
 }

@@ -58,12 +58,12 @@ class DatabaseManager {
     return AppUser.fromMap(query.docs.first.data());
   }
 
-  Future<Organization> getOrganizationByUserId(String userId) async {
+  Future<String> getOrganizationIdByUserId(String userId) async {
     final QuerySnapshot query = await _db
         .collection(USERS_PATH)
         .doc(userId)
         .collection(ORGANIZATION_PATH)
         .get();
-    return Organization.fromMap(query.docs.first.data());
+    return Organization.fromMap(query.docs.first.data()).organizationId;
   }
 }

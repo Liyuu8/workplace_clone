@@ -493,10 +493,10 @@ class S {
     );
   }
 
-  /// `Create Groups Inside`
+  /// `Create Groups Inside `
   String get createGroupsInside {
     return Intl.message(
-      'Create Groups Inside',
+      'Create Groups Inside ',
       name: 'createGroupsInside',
       desc: '',
       args: [],
@@ -583,10 +583,10 @@ class S {
     );
   }
 
-  /// `Invite People to Join`
+  /// `Invite People to Join `
   String get invitePeople {
     return Intl.message(
-      'Invite People to Join',
+      'Invite People to Join ',
       name: 'invitePeople',
       desc: '',
       args: [],

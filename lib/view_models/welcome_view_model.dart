@@ -52,6 +52,17 @@ class WelcomeViewModel extends ChangeNotifier {
   String _jobTitle = '';
   String get jobTitle => _jobTitle;
 
+  List<bool> _initialGroupCheckList = [true, true, true, true];
+  List<bool> get initialGroupCheckList => _initialGroupCheckList;
+
+  bool _isInitialGroupSkipped = false;
+
+  String _someoneEmail1 = '';
+  String get someoneEmail1 => _someoneEmail1;
+
+  String _someoneEmail2 = '';
+  String get someoneEmail2 => _someoneEmail2;
+
   Future<bool> isSignIn() async => await userRepository.isSignIn();
 
   Future<void> signUpAndCreateOrganization() async =>
@@ -123,6 +134,25 @@ class WelcomeViewModel extends ChangeNotifier {
   }
 
   bool isPasswordEmpty() => _password == '';
+
+  updateInitialGroupCheckList(int index, bool isChecked) {
+    _initialGroupCheckList[index] = isChecked;
+    notifyListeners();
+  }
+
+  skipInitialGroupCreated() => _isInitialGroupSkipped = true;
+
+  updateSomeoneEmailField(String updatedEmail, int index) {
+    index == 1 ? _someoneEmail1 = updatedEmail : _someoneEmail2 = updatedEmail;
+    notifyListeners();
+  }
+
+  bool isSomeoneEmailEmpty() =>
+      [_someoneEmail1, _someoneEmail2].every((email) => email == '');
+
+  initializeOrganizationSetting() {
+    // TODO:
+  }
 
   Future<void> signOut() async => userRepository.signOut();
 }

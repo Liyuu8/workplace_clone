@@ -53,7 +53,9 @@ class UserRepository extends ChangeNotifier {
 
     if (await dbManager.isUserExisted(user)) {
       _currentUser ??= await dbManager.getUserById(user.uid);
-      _usersOrganization ??= await dbManager.getOrganizationByUserId(user.uid);
+      _usersOrganization ??= await dbManager.getOrganizationById(
+        await dbManager.getOrganizationIdByUserId(user.uid),
+      );
       _status = Status.Authenticated;
       notifyListeners();
     }
@@ -63,7 +65,9 @@ class UserRepository extends ChangeNotifier {
     if (auth.currentUser != null) {
       final userId = auth.currentUser.uid;
       _currentUser = await dbManager.getUserById(userId);
-      _usersOrganization = await dbManager.getOrganizationByUserId(userId);
+      _usersOrganization = await dbManager.getOrganizationById(
+        await dbManager.getOrganizationIdByUserId(userId),
+      );
       return true;
     }
     return false;
@@ -181,7 +185,9 @@ class UserRepository extends ChangeNotifier {
       }
 
       _currentUser = await dbManager.getUserById(user.uid);
-      _usersOrganization = await dbManager.getOrganizationByUserId(user.uid);
+      _usersOrganization = await dbManager.getOrganizationById(
+        await dbManager.getOrganizationIdByUserId(user.uid),
+      );
 
       _finishProgressingWithSuccess();
       return true;

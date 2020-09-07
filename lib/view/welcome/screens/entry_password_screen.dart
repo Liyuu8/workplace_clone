@@ -86,7 +86,7 @@ class _EntryPasswordScreenState extends State<EntryPasswordScreen> {
                 isContentEmpty: model.isPasswordEmpty(),
                 onPressed: () => _openProcessingScreen(context),
               ),
-            )
+            ),
           ],
         ),
       ),
