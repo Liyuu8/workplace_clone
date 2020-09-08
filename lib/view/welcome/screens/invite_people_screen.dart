@@ -49,75 +49,81 @@ class _InvitePeopleScreenState extends State<InvitePeopleScreen> {
         Provider.of<WelcomeViewModel>(context, listen: false);
     final String organizationName = welcomeViewModel.usersOrganization.name;
 
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          FlatButton(
-            child: Text(S.of(context).skipButton, style: kFlatTextStyle),
-            onPressed: () => _openHomeScreen(context),
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(14.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Center(
-                child: Text(
-                  S.of(context).invitePeople + organizationName,
-                  style: kWelcomeLabelTextStyle,
-                ),
-              ),
-              SizedBox(height: 8.0),
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(6.0),
+    return WillPopScope(
+      onWillPop: () async {
+        _backCreateGroupsScreen();
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          actions: [
+            FlatButton(
+              child: Text(S.of(context).skipButton, style: kFlatTextStyle),
+              onPressed: () => _openHomeScreen(context),
+            ),
+          ],
+        ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(14.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Center(
                   child: Text(
-                    S.of(context).invitePeopleDetail1,
-                    style: kWelcomeDetailTextStyle,
-                    textAlign: TextAlign.center,
+                    S.of(context).invitePeople + organizationName,
+                    style: kWelcomeLabelTextStyle,
                   ),
                 ),
-              ),
-              TextField(
-                controller: _someoneEmail1EditController,
-                style: kWelcomeInputTextStyle,
-                textAlign: TextAlign.center,
-                decoration: InputDecoration(
-                  hintText: S.of(context).invitePeopleInput,
-                ),
-              ),
-              SizedBox(height: 18.0),
-              TextField(
-                controller: _someoneEmail2EditController,
-                style: kWelcomeInputTextStyle,
-                textAlign: TextAlign.center,
-                decoration: InputDecoration(
-                  hintText: S.of(context).invitePeopleInput,
-                ),
-              ),
-              SizedBox(height: 80.0),
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(6.0),
-                  child: Text(
-                    S.of(context).invitePeopleDetail2,
-                    style: kWelcomeInvitePeopleDetailTextStyle,
-                    textAlign: TextAlign.center,
+                SizedBox(height: 8.0),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(6.0),
+                    child: Text(
+                      S.of(context).invitePeopleDetail1,
+                      style: kWelcomeDetailTextStyle,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 4.0),
-              Consumer<WelcomeViewModel>(
-                builder: (context, model, child) => BlueButton(
-                  title: S.of(context).doneButton,
-                  onPressed: () => _openHomeScreen(context),
-                  isContentEmpty: model.isSomeoneEmailEmpty(),
+                TextField(
+                  controller: _someoneEmail1EditController,
+                  style: kWelcomeInputTextStyle,
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                    hintText: S.of(context).invitePeopleInput,
+                  ),
                 ),
-              ),
-            ],
+                SizedBox(height: 18.0),
+                TextField(
+                  controller: _someoneEmail2EditController,
+                  style: kWelcomeInputTextStyle,
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                    hintText: S.of(context).invitePeopleInput,
+                  ),
+                ),
+                SizedBox(height: 80.0),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(6.0),
+                    child: Text(
+                      S.of(context).invitePeopleDetail2,
+                      style: kWelcomeInvitePeopleDetailTextStyle,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 4.0),
+                Consumer<WelcomeViewModel>(
+                  builder: (context, model, child) => BlueButton(
+                    title: S.of(context).doneButton,
+                    onPressed: () => _openHomeScreen(context),
+                    isContentEmpty: model.isSomeoneEmailEmpty(),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -142,5 +148,10 @@ class _InvitePeopleScreenState extends State<InvitePeopleScreen> {
       MaterialPageRoute(builder: (_) => HomeScreen()),
       (_) => false,
     );
+  }
+
+  _backCreateGroupsScreen() {
+    final welcomeViewModel = context.read<WelcomeViewModel>();
+    welcomeViewModel.backCreateGroups();
   }
 }

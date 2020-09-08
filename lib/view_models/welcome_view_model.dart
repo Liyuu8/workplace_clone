@@ -5,6 +5,7 @@ import 'package:workplace_clone/data_models/app_user.dart';
 import 'package:workplace_clone/data_models/organization.dart';
 
 // models
+import 'package:workplace_clone/models/repositories/group_repository.dart';
 import 'package:workplace_clone/models/repositories/user_repository.dart';
 
 // utils
@@ -12,7 +13,8 @@ import 'package:workplace_clone/utils/constants.dart';
 
 class WelcomeViewModel extends ChangeNotifier {
   final UserRepository userRepository;
-  WelcomeViewModel({this.userRepository});
+  final GroupRepository groupRepository;
+  WelcomeViewModel({this.userRepository, this.groupRepository});
 
   String _organizationId = '';
   String get organizationId => _organizationId;
@@ -150,8 +152,17 @@ class WelcomeViewModel extends ChangeNotifier {
   bool isSomeoneEmailEmpty() =>
       [_someoneEmail1, _someoneEmail2].every((email) => email == '');
 
-  initializeOrganizationSetting() {
-    // TODO:
+  backCreateGroups() => _isInitialGroupSkipped = false;
+
+  Future<void> initializeOrganizationSetting() async {
+    if (!_isInitialGroupSkipped) {
+      await groupRepository.initializeGroup(
+        _initialGroupCheckList,
+        _usersOrganization.organizationId,
+        _currentUser.userId,
+      );
+    }
+    // TODO: firebase_dynamic_links を利用して、ユーザーへの招待リンクを生成・送信したい
   }
 
   Future<void> signOut() async => userRepository.signOut();

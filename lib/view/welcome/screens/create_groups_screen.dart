@@ -32,11 +32,11 @@ class CreateGroupsScreen extends StatelessWidget {
       S.of(context).createGroupsInsideChoiceMain,
     ];
     final List<String> groupPhotoUrlList = [
-      'assets/images/group_general.jpg',
-      'assets/images/group_project_updates.jpg',
-      'assets/images/group_company_social.jpg',
       'assets/images/group_company_announcements.jpg',
       'assets/images/group_marketing_team.jpg',
+      'assets/images/group_company_social.jpg',
+      'assets/images/group_project_updates.jpg',
+      'assets/images/group_general.jpg',
     ];
 
     return Scaffold(

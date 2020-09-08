@@ -12,7 +12,7 @@ import 'package:workplace_clone/utils/constants.dart';
 import 'package:workplace_clone/utils/keys.dart';
 
 // screens
-import 'package:workplace_clone/view/common/screens/home_screen.dart';
+import 'package:workplace_clone/view/welcome/screens/create_groups_screen.dart';
 
 // components
 import 'package:workplace_clone/view/welcome/components/blue_button.dart';
@@ -76,7 +76,9 @@ class ProgressingScreen extends StatelessWidget {
                               isContentEmpty: false,
                               onPressed: () => Navigator.pushAndRemoveUntil(
                                 context,
-                                MaterialPageRoute(builder: (_) => HomeScreen()),
+                                MaterialPageRoute(
+                                  builder: (_) => CreateGroupsScreen(),
+                                ),
                                 (_) => false,
                               ),
                             ),

@@ -4,7 +4,7 @@ class Group {
   final String groupId;
   final String name;
   final String type;
-  final String visibility;
+  final String privacy;
   final String description;
   final String photoUrl;
 
@@ -14,7 +14,7 @@ class Group {
     @required this.groupId,
     @required this.name,
     @required this.type,
-    @required this.visibility,
+    @required this.privacy,
     @required this.description,
     @required this.photoUrl,
   });
@@ -23,14 +23,14 @@ class Group {
     String groupId,
     String name,
     String type,
-    String visibility,
+    String privacy,
     String description,
     String photoUrl,
   }) {
     if ((groupId == null || identical(groupId, this.groupId)) &&
         (name == null || identical(name, this.name)) &&
         (type == null || identical(type, this.type)) &&
-        (visibility == null || identical(visibility, this.visibility)) &&
+        (privacy == null || identical(privacy, this.privacy)) &&
         (description == null || identical(description, this.description)) &&
         (photoUrl == null || identical(photoUrl, this.photoUrl))) {
       return this;
@@ -40,7 +40,7 @@ class Group {
       groupId: groupId ?? this.groupId,
       name: name ?? this.name,
       type: type ?? this.type,
-      visibility: visibility ?? this.visibility,
+      privacy: privacy ?? this.privacy,
       description: description ?? this.description,
       photoUrl: photoUrl ?? this.photoUrl,
     );
@@ -48,7 +48,7 @@ class Group {
 
   @override
   String toString() {
-    return 'Group{groupId: $groupId, name: $name, type: $type, visibility: $visibility, description: $description, photoUrl: $photoUrl}';
+    return 'Group{groupId: $groupId, name: $name, type: $type, privacy: $privacy, description: $description, photoUrl: $photoUrl}';
   }
 
   @override
@@ -59,7 +59,7 @@ class Group {
           groupId == other.groupId &&
           name == other.name &&
           type == other.type &&
-          visibility == other.visibility &&
+          privacy == other.privacy &&
           description == other.description &&
           photoUrl == other.photoUrl);
 
@@ -68,7 +68,7 @@ class Group {
       groupId.hashCode ^
       name.hashCode ^
       type.hashCode ^
-      visibility.hashCode ^
+      privacy.hashCode ^
       description.hashCode ^
       photoUrl.hashCode;
 
@@ -77,7 +77,7 @@ class Group {
       groupId: map['groupId'] as String,
       name: map['name'] as String,
       type: map['type'] as String,
-      visibility: map['visibility'] as String,
+      privacy: map['privacy'] as String,
       description: map['description'] as String,
       photoUrl: map['photoUrl'] as String,
     );
@@ -89,7 +89,7 @@ class Group {
       'groupId': this.groupId,
       'name': this.name,
       'type': this.type,
-      'visibility': this.visibility,
+      'privacy': this.privacy,
       'description': this.description,
       'photoUrl': this.photoUrl,
     } as Map<String, dynamic>;

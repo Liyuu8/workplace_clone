@@ -6,6 +6,7 @@ import 'package:provider/single_child_widget.dart';
 import 'package:workplace_clone/models/db/database_manager.dart';
 
 // repositories
+import 'package:workplace_clone/models/repositories/group_repository.dart';
 import 'package:workplace_clone/models/repositories/user_repository.dart';
 
 // view models
@@ -30,14 +31,19 @@ List<SingleChildWidget> dependentModels = [
       dbManager: context.read<DatabaseManager>(),
     ),
   ),
+  ProxyProvider<DatabaseManager, GroupRepository>(
+    update: (_, dbManager, repository) => GroupRepository(dbManager: dbManager),
+  ),
 ];
 
 List<SingleChildWidget> viewModels = [
-  ChangeNotifierProxyProvider<UserRepository, WelcomeViewModel>(
+  ChangeNotifierProxyProvider2<UserRepository, GroupRepository,
+      WelcomeViewModel>(
     create: (context) => WelcomeViewModel(
       userRepository: context.read<UserRepository>(),
+      groupRepository: context.read<GroupRepository>(),
     ),
-    update: (_, repository, viewModel) =>
-        viewModel..onUserRepositoryUpdated(repository),
-  )
+    update: (_, userRepository, groupRepository, viewModel) =>
+        viewModel..onUserRepositoryUpdated(userRepository),
+  ),
 ];

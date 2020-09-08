@@ -3,15 +3,19 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 // data models
 import 'package:workplace_clone/data_models/app_user.dart';
+import 'package:workplace_clone/data_models/group.dart';
 import 'package:workplace_clone/data_models/organization.dart';
 
 // database paths
 const ORGANIZATION_PATH = 'organizations';
 const USERS_PATH = 'users';
+const GROUPS_PATH = 'groups';
+const MEMBERS_PATH = 'members';
 
 // database fields
 const ORGANIZATION_ID_FIELD = 'organizationId';
 const USER_ID_FIELD = 'userId';
+const GROUP_ID_FIELD = 'groupId';
 
 class DatabaseManager {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -41,6 +45,25 @@ class DatabaseManager {
         .doc(organizationId)
         .set({ORGANIZATION_ID_FIELD: organizationId});
   }
+
+  Future<void> insertGroup(Group group, String organizationId) async =>
+      await _db
+          .collection(ORGANIZATION_PATH)
+          .doc(organizationId)
+          .collection(GROUPS_PATH)
+          .doc(group.groupId)
+          .set(group.toMap());
+
+  Future<void> insertUserToGroup(
+          String appUserId, String groupId, String organizationId) async =>
+      await _db
+          .collection(ORGANIZATION_PATH)
+          .doc(organizationId)
+          .collection(GROUPS_PATH)
+          .doc(groupId)
+          .collection(MEMBERS_PATH)
+          .doc(appUserId)
+          .set({USER_ID_FIELD: appUserId});
 
   Future<Organization> getOrganizationById(String organizationId) async {
     final QuerySnapshot query = await _db

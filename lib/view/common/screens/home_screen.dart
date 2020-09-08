@@ -12,7 +12,7 @@ import 'package:workplace_clone/view/notification/pages/notification_page.dart';
 // screens
 import 'package:workplace_clone/view/chat/screens/chat_screen.dart';
 import 'package:workplace_clone/view/search/screens/search_screen.dart';
-import 'package:workplace_clone/view/welcome/screens/create_groups_screen.dart';
+import 'package:workplace_clone/view/group/screens/new_group_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -105,8 +105,7 @@ class _HomeScreenState extends State<HomeScreen>
   _openNewGroupScreen(BuildContext context) {
     Navigator.push(
       context,
-      // TODO: MaterialPageRoute(builder: (_) => NewGroupScreen()),
-      MaterialPageRoute(builder: (_) => CreateGroupsScreen()),
+      MaterialPageRoute(builder: (_) => NewGroupScreen()),
     );
   }
 }
