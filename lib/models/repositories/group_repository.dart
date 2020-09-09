@@ -77,4 +77,7 @@ class GroupRepository {
       print('GroupRepository.initializeGroup: newGroup is $newGroup');
     });
   }
+
+  Future<List<Group>> getGroupsByOrganizationId(String organizationId) async =>
+      await dbManager.getGroupsByOrganizationId(organizationId);
 }

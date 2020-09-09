@@ -16,9 +16,6 @@ class WelcomeViewModel extends ChangeNotifier {
   final GroupRepository groupRepository;
   WelcomeViewModel({this.userRepository, this.groupRepository});
 
-  String _organizationId = '';
-  String get organizationId => _organizationId;
-
   Organization _usersOrganization;
   Organization get usersOrganization => _usersOrganization;
 
@@ -32,7 +29,7 @@ class WelcomeViewModel extends ChangeNotifier {
     _usersOrganization = userRepository.usersOrganization;
     _currentUser = userRepository.currentUser;
     _status = userRepository.status;
-    print('onUserRepositoryUpdated: status is $_status');
+    print('WelcomeViewModel.onUserRepositoryUpdated: status is $_status');
     notifyListeners();
   }
 
@@ -44,6 +41,9 @@ class WelcomeViewModel extends ChangeNotifier {
 
   String _password = '';
   String get password => _password;
+
+  String _invitationOrganizationId = '';
+  String get invitationOrganizationId => _invitationOrganizationId;
 
   String _organizationName = '';
   String get organizationName => _organizationName;
@@ -82,7 +82,7 @@ class WelcomeViewModel extends ChangeNotifier {
         _email,
         _fullName,
         _password,
-        _organizationId,
+        _invitationOrganizationId,
       );
 
   Future<void> logIn() async => await userRepository.logIn(_email, _password);

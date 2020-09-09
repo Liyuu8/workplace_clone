@@ -89,4 +89,17 @@ class DatabaseManager {
         .get();
     return Organization.fromMap(query.docs.first.data()).organizationId;
   }
+
+  Future<List<Group>> getGroupsByOrganizationId(String organizationId) async {
+    final QuerySnapshot query = await _db
+        .collection(ORGANIZATION_PATH)
+        .doc(organizationId)
+        .collection(GROUPS_PATH)
+        .get();
+    return query.docs.length == 0
+        ? []
+        : query.docs
+            .map((DocumentSnapshot snapshot) => Group.fromMap(snapshot.data()))
+            .toList();
+  }
 }

@@ -10,6 +10,7 @@ import 'package:workplace_clone/models/repositories/group_repository.dart';
 import 'package:workplace_clone/models/repositories/user_repository.dart';
 
 // view models
+import 'package:workplace_clone/view_models/group_view_model.dart';
 import 'package:workplace_clone/view_models/welcome_view_model.dart';
 
 List<SingleChildWidget> globalProviders = [
@@ -40,6 +41,14 @@ List<SingleChildWidget> viewModels = [
   ChangeNotifierProxyProvider2<UserRepository, GroupRepository,
       WelcomeViewModel>(
     create: (context) => WelcomeViewModel(
+      userRepository: context.read<UserRepository>(),
+      groupRepository: context.read<GroupRepository>(),
+    ),
+    update: (_, userRepository, groupRepository, viewModel) =>
+        viewModel..onUserRepositoryUpdated(userRepository),
+  ),
+  ChangeNotifierProxyProvider2<UserRepository, GroupRepository, GroupViewModel>(
+    create: (context) => GroupViewModel(
       userRepository: context.read<UserRepository>(),
       groupRepository: context.read<GroupRepository>(),
     ),

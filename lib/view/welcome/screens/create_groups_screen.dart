@@ -9,7 +9,7 @@ import 'package:workplace_clone/utils/styles.dart';
 
 // components
 import 'package:workplace_clone/view/welcome/components/blue_button.dart';
-import 'package:workplace_clone/view/welcome/components/group_card.dart';
+import 'package:workplace_clone/view/common/components/group_card.dart';
 
 // screens
 import 'package:workplace_clone/view/welcome/screens/invite_people_screen.dart';

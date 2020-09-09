@@ -25,14 +25,14 @@ class GroupCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(title, style: kWelcomeChoiceLabelTextStyle),
+      title: Text(title, style: kChoiceLabelTextStyle),
       leading: CirclePhoto(
         photoUrl: photoUrl,
         isImageFromFile: true,
         initialLetter: title.substring(0, 1),
       ),
       subtitle: subTitle != null
-          ? Text(subTitle, style: kWelcomeChoiceLabelTextStyle)
+          ? Text(subTitle, style: kChoiceLabelTextStyle)
           : null,
       trailing: isCheckboxExisted
           ? Checkbox(value: isChecked, onChanged: onCheckBoxChanged)
