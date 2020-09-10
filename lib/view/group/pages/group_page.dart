@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-// data models
-import 'package:workplace_clone/data_models/group.dart';
-
 // generated
 import 'package:workplace_clone/generated/l10n.dart';
 
@@ -11,11 +8,7 @@ import 'package:workplace_clone/generated/l10n.dart';
 import 'package:workplace_clone/utils/styles.dart';
 
 // components
-import 'package:workplace_clone/view/common/components/radio_select_dialog.dart';
-import 'package:workplace_clone/view/common/components/group_card.dart';
-
-// screens
-import 'package:workplace_clone/view/group/screens/group_screen.dart';
+import 'package:workplace_clone/view/group/components/group_list.dart';
 
 // view models
 import 'package:workplace_clone/view_models/group_view_model.dart';
@@ -35,55 +28,25 @@ class GroupPage extends StatelessWidget {
                 onRefresh: () => groupViewModel.getGroups(),
                 child: SingleChildScrollView(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        color: Colors.white,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 16.0),
-                                  child: Text(
-                                    S.of(context).yourGroups,
-                                    style: kGroupMainLabelTextStyle,
-                                  ),
-                                ),
-                                FlatButton(
-                                  child: Row(
-                                    children: [
-                                      Text(groupSortAndFilterStringMap[
-                                          groupSortAndFilterIndexList[
-                                              model.groupSortAndFilterIndex]]),
-                                      Icon(Icons.expand_more),
-                                    ],
-                                  ),
-                                  onPressed: () =>
-                                      _openGroupSortAndFilterSettingDialog(
-                                          context),
-                                ),
-                              ],
-                            ),
-                            Divider(),
-                            ListView.builder(
-                              itemCount: model.groups.length,
-                              itemBuilder: (context, index) => InkWell(
-                                onTap: () => _openGroupScreen(
-                                  context,
-                                  model.groups[index],
-                                ),
-                                child: GroupCard(
-                                  title: model.groups[index].name,
-                                  photoUrl: model.groups[index].photoUrl,
-                                  isCheckboxExisted: false,
-                                ),
-                              ),
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                            ),
-                          ],
+                      GroupList(),
+                      SizedBox(height: 24.0),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text(
+                          S.of(context).createGroups,
+                          style: kGroupCreateMessageTextStyle,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 16.0,
+                          horizontal: 60.0,
+                        ),
+                        child: Text(
+                          S.of(context).createGroupsDetail,
+                          textAlign: TextAlign.center,
                         ),
                       ),
                     ],
@@ -91,23 +54,6 @@ class GroupPage extends StatelessWidget {
                 ),
               ),
       ),
-    );
-  }
-
-  _openGroupSortAndFilterSettingDialog(BuildContext context) async {
-    final groupViewModel = context.read<GroupViewModel>();
-    int selectedIndex = await showRadioSelectDialog(
-      context: context,
-      contentTextList: groupSortAndFilterStringMap.values.toList(),
-      selectedIndex: groupViewModel.groupSortAndFilterIndex,
-    );
-    groupViewModel.updateGroupSortAndFilterSetting(selectedIndex);
-  }
-
-  _openGroupScreen(BuildContext context, Group group) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => GroupScreen(group: group)),
     );
   }
 }

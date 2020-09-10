@@ -8,7 +8,6 @@ Future<int> showRadioSelectDialog({
 }) async {
   return await showDialog(
     context: context,
-    barrierDismissible: false,
     builder: (_) => RadioSelectDialog(
       contentTextList: contentTextList,
       selectedIndex: selectedIndex,
@@ -41,7 +40,7 @@ class RadioSelectDialog extends StatelessWidget {
                 value: index,
                 groupValue: selectedIndex,
                 onChanged: null,
-                activeColor: Colors.blueAccent,
+                activeColor: Colors.blueAccent, // TODO: 色がグレーのままで変わらない
               ),
             ),
             onPressed: () => Navigator.pop(context, index),
@@ -53,4 +52,5 @@ class RadioSelectDialog extends StatelessWidget {
     );
   }
   // https://flutter.keicode.com/basics/simpledialog.php
+  // https://stackoverflow.com/questions/50095763/flutter-listview-in-a-simpledialog
 }

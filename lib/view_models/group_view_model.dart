@@ -77,7 +77,9 @@ class GroupViewModel extends ChangeNotifier {
 
   // TODO:
   updateGroupSortAndFilterSetting(int selectedIndex) {
-    _groupSortAndFilterIndex = selectedIndex;
-    notifyListeners();
+    if (selectedIndex != null) {
+      _groupSortAndFilterIndex = selectedIndex;
+      notifyListeners();
+    }
   }
 }
