@@ -36,7 +36,7 @@ class GroupPage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: Text(
                           S.of(context).createGroups,
-                          style: kGroupCreateMessageTextStyle,
+                          style: kGroupTitleTextStyle,
                         ),
                       ),
                       Padding(

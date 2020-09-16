@@ -66,7 +66,7 @@ const kGroupMainLabelTextStyle = TextStyle(
   fontFamily: kBoldFont,
   fontSize: 17.0,
 );
-const kGroupCreateMessageTextStyle = TextStyle(
+const kGroupTitleTextStyle = TextStyle(
   fontFamily: kRegularFont,
   fontSize: 17.0,
 );

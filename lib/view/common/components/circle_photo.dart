@@ -16,8 +16,9 @@ class CirclePhoto extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircleAvatar(
       radius: radius,
-      backgroundImage:
-          isImageFromFile ? AssetImage(photoUrl) : Image.network(photoUrl),
+      backgroundImage: photoUrl == null
+          ? null
+          : isImageFromFile ? AssetImage(photoUrl) : Image.network(photoUrl),
       child: photoUrl == null ? Text(initialLetter) : null,
     );
   }

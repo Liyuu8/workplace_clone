@@ -145,7 +145,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "savePostDetail" : MessageLookupByLibrary.simpleMessage("Add this to your saved items"),
     "saved" : MessageLookupByLibrary.simpleMessage("Saved"),
     "search" : MessageLookupByLibrary.simpleMessage("Search"),
-    "searchGroupsInput" : MessageLookupByLibrary.simpleMessage("Search Group"),
+    "searchGroupsInput" : MessageLookupByLibrary.simpleMessage("Search Groups"),
     "secret" : MessageLookupByLibrary.simpleMessage("Secret"),
     "secretDetail" : MessageLookupByLibrary.simpleMessage("Only members can find the group, see who\'s in it and what they post."),
     "seeAll" : MessageLookupByLibrary.simpleMessage("See All"),

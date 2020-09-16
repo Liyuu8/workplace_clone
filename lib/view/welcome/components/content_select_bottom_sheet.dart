@@ -8,13 +8,13 @@ import 'package:workplace_clone/utils/styles.dart';
 // view models
 import 'package:workplace_clone/view_models/welcome_view_model.dart';
 
-class TextFieldByBottomSheet extends StatelessWidget {
+class ContentSelectBottomSheet extends StatelessWidget {
   final String content;
   final bool isContentEmpty;
   final String contentTitle;
   final List<String> contentChoiceList;
   final BottomSheetContentType contentType;
-  TextFieldByBottomSheet({
+  ContentSelectBottomSheet({
     @required this.content,
     @required this.isContentEmpty,
     @required this.contentTitle,

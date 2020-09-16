@@ -80,4 +80,8 @@ class GroupRepository {
 
   Future<List<Group>> getGroupsByOrganizationId(String organizationId) async =>
       await dbManager.getGroupsByOrganizationId(organizationId);
+
+  Future<List<String>> getGroupMemberUserIds(
+          String organizationId, String groupId) async =>
+      await dbManager.getGroupMemberUserIds(organizationId, groupId);
 }

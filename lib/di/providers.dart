@@ -7,9 +7,11 @@ import 'package:workplace_clone/models/db/database_manager.dart';
 
 // repositories
 import 'package:workplace_clone/models/repositories/group_repository.dart';
+import 'package:workplace_clone/models/repositories/post_repository.dart';
 import 'package:workplace_clone/models/repositories/user_repository.dart';
 
 // view models
+import 'package:workplace_clone/view_models/feed_view_model.dart';
 import 'package:workplace_clone/view_models/group_view_model.dart';
 import 'package:workplace_clone/view_models/welcome_view_model.dart';
 
@@ -35,6 +37,9 @@ List<SingleChildWidget> dependentModels = [
   ProxyProvider<DatabaseManager, GroupRepository>(
     update: (_, dbManager, repository) => GroupRepository(dbManager: dbManager),
   ),
+  ProxyProvider<DatabaseManager, PostRepository>(
+    update: (_, dbManager, repository) => PostRepository(dbManager: dbManager),
+  ),
 ];
 
 List<SingleChildWidget> viewModels = [
@@ -45,6 +50,16 @@ List<SingleChildWidget> viewModels = [
       groupRepository: context.read<GroupRepository>(),
     ),
     update: (_, userRepository, groupRepository, viewModel) =>
+        viewModel..onUserRepositoryUpdated(userRepository),
+  ),
+  ChangeNotifierProxyProvider3<UserRepository, GroupRepository, PostRepository,
+      FeedViewModel>(
+    create: (context) => FeedViewModel(
+      userRepository: context.read<UserRepository>(),
+      groupRepository: context.read<GroupRepository>(),
+      postRepository: context.read<PostRepository>(),
+    ),
+    update: (_, userRepository, groupRepository, postRepository, viewModel) =>
         viewModel..onUserRepositoryUpdated(userRepository),
   ),
   ChangeNotifierProxyProvider2<UserRepository, GroupRepository, GroupViewModel>(

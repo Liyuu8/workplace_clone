@@ -12,7 +12,7 @@ import 'package:workplace_clone/utils/styles.dart';
 
 // components
 import 'package:workplace_clone/view/welcome/components/blue_button.dart';
-import 'package:workplace_clone/view/welcome/components/text_field_by_bottom_sheet.dart';
+import 'package:workplace_clone/view/welcome/components/content_select_bottom_sheet.dart';
 
 // screens
 import 'package:workplace_clone/view/welcome/screens/progressing_screen.dart';
@@ -139,7 +139,7 @@ class _EntryUserDetailsScreenState extends State<EntryUserDetailsScreen> {
                 style: kWelcomeDetailsLabelTextStyle,
               ),
               Consumer<WelcomeViewModel>(
-                builder: (context, model, child) => TextFieldByBottomSheet(
+                builder: (context, model, child) => ContentSelectBottomSheet(
                   content: model.organizationSize == ''
                       ? S.of(context).organizationSizeInput
                       : model.organizationSize,
@@ -165,7 +165,7 @@ class _EntryUserDetailsScreenState extends State<EntryUserDetailsScreen> {
                 style: kWelcomeDetailsLabelTextStyle,
               ),
               Consumer<WelcomeViewModel>(
-                builder: (context, model, child) => TextFieldByBottomSheet(
+                builder: (context, model, child) => ContentSelectBottomSheet(
                   content: model.jobTitle == ''
                       ? S.of(context).jobTitleInput
                       : model.jobTitle,

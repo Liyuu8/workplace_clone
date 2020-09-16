@@ -693,10 +693,10 @@ class S {
     );
   }
 
-  /// `Search Group`
+  /// `Search Groups`
   String get searchGroupsInput {
     return Intl.message(
-      'Search Group',
+      'Search Groups',
       name: 'searchGroupsInput',
       desc: '',
       args: [],
