@@ -63,7 +63,7 @@ class _EntryEmailScreenState extends State<EntryEmailScreen> {
             TextField(
               key: emailFieldKey,
               controller: _emailEditController,
-              style: kWelcomeInputTextStyle,
+              style: kInputTextStyle,
               textAlign: TextAlign.center,
               decoration: InputDecoration(
                 hintText: S.of(context).enterEmailInput,

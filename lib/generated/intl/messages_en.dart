@@ -54,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "createGroupsInsideDetail" : MessageLookupByLibrary.simpleMessage("Groups are spaces within your Workplace where people can post ideas, share files and much more. Here are some suggestions."),
     "createPostButton" : MessageLookupByLibrary.simpleMessage("CREATE POST"),
     "createPostInput" : MessageLookupByLibrary.simpleMessage("Create a post..."),
+    "createPostTitle" : MessageLookupByLibrary.simpleMessage("Create Post"),
     "description" : MessageLookupByLibrary.simpleMessage("Description (optional)"),
     "descriptionInput" : MessageLookupByLibrary.simpleMessage("Tell your members what your group is for, eg team planning, or organising a space mission."),
     "discussions" : MessageLookupByLibrary.simpleMessage("Discussions"),

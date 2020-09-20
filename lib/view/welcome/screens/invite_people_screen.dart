@@ -58,7 +58,8 @@ class _InvitePeopleScreenState extends State<InvitePeopleScreen> {
         appBar: AppBar(
           actions: [
             FlatButton(
-              child: Text(S.of(context).skipButton, style: kFlatTextStyle),
+              child: Text(S.of(context).skipButton,
+                  style: kFlatButtonEnableTextStyle),
               onPressed: () => _openHomeScreen(context),
             ),
           ],
@@ -88,7 +89,7 @@ class _InvitePeopleScreenState extends State<InvitePeopleScreen> {
                 ),
                 TextField(
                   controller: _someoneEmail1EditController,
-                  style: kWelcomeInputTextStyle,
+                  style: kInputTextStyle,
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
                     hintText: S.of(context).invitePeopleInput,
@@ -97,7 +98,7 @@ class _InvitePeopleScreenState extends State<InvitePeopleScreen> {
                 SizedBox(height: 18.0),
                 TextField(
                   controller: _someoneEmail2EditController,
-                  style: kWelcomeInputTextStyle,
+                  style: kInputTextStyle,
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
                     hintText: S.of(context).invitePeopleInput,
@@ -109,7 +110,7 @@ class _InvitePeopleScreenState extends State<InvitePeopleScreen> {
                     padding: const EdgeInsets.all(6.0),
                     child: Text(
                       S.of(context).invitePeopleDetail2,
-                      style: kWelcomeInvitePeopleDetailTextStyle,
+                      style: kDetailLabelTextStyle,
                       textAlign: TextAlign.center,
                     ),
                   ),

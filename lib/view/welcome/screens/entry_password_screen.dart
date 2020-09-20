@@ -61,7 +61,7 @@ class _EntryPasswordScreenState extends State<EntryPasswordScreen> {
             TextField(
               key: passwordFieldKey,
               controller: _passwordEditController,
-              style: kWelcomeInputTextStyle,
+              style: kInputTextStyle,
               textAlign: TextAlign.center,
               decoration: InputDecoration(
                 hintText: S.of(context).enterPasswordInput,

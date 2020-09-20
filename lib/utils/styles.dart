@@ -11,10 +11,28 @@ const kButtonTextStyle = TextStyle(
   fontFamily: kRegularFont,
   fontSize: 20.0,
 );
-const kFlatTextStyle = TextStyle(
+const kFlatButtonEnableTextStyle = TextStyle(
   fontFamily: kMediumFont,
-  fontSize: 18.0,
+  fontSize: 16.0,
   color: Colors.blueAccent,
+);
+const kFlatButtonUnableTextStyle = TextStyle(
+  fontFamily: kMediumFont,
+  fontSize: 16.0,
+  color: Colors.grey,
+);
+const kInputTextStyle = TextStyle(
+  fontFamily: kRegularFont,
+  fontSize: 26.0,
+);
+const kMainLabelTextStyle = TextStyle(
+  fontFamily: kBoldFont,
+  fontSize: 17.0,
+);
+const kDetailLabelTextStyle = TextStyle(
+  fontFamily: kBoldFont,
+  fontSize: 14.0,
+  color: Colors.grey,
 );
 const kChoiceLabelTextStyle = TextStyle(
   fontFamily: kMediumFont,
@@ -29,10 +47,6 @@ const kWelcomeLabelTextStyle = TextStyle(
 const kWelcomeDetailTextStyle = TextStyle(
   fontFamily: kBoldFont,
   fontSize: 18.0,
-);
-const kWelcomeInputTextStyle = TextStyle(
-  fontFamily: kRegularFont,
-  fontSize: 26.0,
 );
 const kWelcomeDetailsLabelTextStyle = TextStyle(
   fontFamily: kBoldFont,
@@ -55,18 +69,16 @@ const kWelcomeDetailsBottomSheetTextStyle = TextStyle(
   fontFamily: kRegularFont,
   fontSize: 19.0,
 );
-const kWelcomeInvitePeopleDetailTextStyle = TextStyle(
-  fontFamily: kBoldFont,
-  fontSize: 14.0,
-  color: Colors.grey,
-);
 
 // Group
-const kGroupMainLabelTextStyle = TextStyle(
-  fontFamily: kBoldFont,
-  fontSize: 17.0,
-);
 const kGroupTitleTextStyle = TextStyle(
   fontFamily: kRegularFont,
   fontSize: 17.0,
+);
+
+// Post
+const kPostIconInitialTextStyle = TextStyle(
+  fontFamily: kBoldFont,
+  fontSize: 24.0,
+  color: Colors.white,
 );

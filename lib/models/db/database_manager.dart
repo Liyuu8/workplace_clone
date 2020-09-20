@@ -83,7 +83,7 @@ class DatabaseManager {
       .collection(ORGANIZATION_PATH)
       .doc(organizationId)
       .collection(POSTS_PATH)
-      .doc(post.groupId)
+      .doc(post.postId)
       .set(post.toMap());
 
   Future<Organization> getOrganizationById(String organizationId) async {
@@ -172,27 +172,27 @@ class DatabaseManager {
   }
 
   Future<List<Post>> getFollowingGroupPosts(
-          String organizationId, String appUserId) async =>
-      await _isPostExisted(organizationId)
-          ? await _db
-              .collection(ORGANIZATION_PATH)
-              .doc(organizationId)
-              .collection(POSTS_PATH)
-              .where(
-                GROUP_ID_FIELD,
-                whereIn: await _getFollowingGroupIds(organizationId, appUserId),
-              )
-              .orderBy(POST_DATE_TIME_FIELD, descending: true)
-              .get()
-              .then(
-                (QuerySnapshot querySnapshot) => querySnapshot.docs
-                    .map(
-                      (DocumentSnapshot snapshot) =>
-                          Post.fromMap(snapshot.data()),
-                    )
-                    .toList(),
-              )
-          : [];
+      String organizationId, String appUserId) async {
+    final List<String> groupIds =
+        await _getFollowingGroupIds(organizationId, appUserId);
+    return await _isPostExisted(organizationId)
+        ? await _db
+            .collection(ORGANIZATION_PATH)
+            .doc(organizationId)
+            .collection(POSTS_PATH)
+            .where(GROUP_ID_FIELD, whereIn: groupIds)
+            .orderBy(POST_DATE_TIME_FIELD, descending: true)
+            .get()
+            .then(
+              (QuerySnapshot querySnapshot) => querySnapshot.docs
+                  .map(
+                    (DocumentSnapshot snapshot) =>
+                        Post.fromMap(snapshot.data()),
+                  )
+                  .toList(),
+            )
+        : [];
+  }
 
   Future<List<String>> _getFollowingUserIds(
     String organizationId,
@@ -215,28 +215,29 @@ class DatabaseManager {
   }
 
   Future<List<Post>> getMyselfAndFollowingUsersPosts(
-          String organizationId, String myUserId) async =>
-      await _isPostExisted(organizationId)
-          ? await _db
-              .collection(ORGANIZATION_PATH)
-              .doc(organizationId)
-              .collection(POSTS_PATH)
-              .where(
-                USER_ID_FIELD,
-                whereIn: (await _getFollowingUserIds(organizationId, myUserId))
-                    .followedBy([myUserId]).toList(),
-              )
-              .orderBy(POST_DATE_TIME_FIELD, descending: true)
-              .get()
-              .then(
-                (QuerySnapshot querySnapshot) => querySnapshot.docs
-                    .map(
-                      (DocumentSnapshot snapshot) =>
-                          Post.fromMap(snapshot.data()),
-                    )
-                    .toList(),
-              )
-          : [];
+      String organizationId, String myUserId) async {
+    final List<String> userIds =
+        (await _getFollowingUserIds(organizationId, myUserId))
+            .followedBy([myUserId]).toList();
+    return await _isPostExisted(organizationId)
+        ? await _db
+            .collection(ORGANIZATION_PATH)
+            .doc(organizationId)
+            .collection(POSTS_PATH)
+            .where(GROUP_ID_FIELD, isEqualTo: '')
+            .where(USER_ID_FIELD, whereIn: userIds)
+            .orderBy(POST_DATE_TIME_FIELD, descending: true)
+            .get()
+            .then(
+              (QuerySnapshot querySnapshot) => querySnapshot.docs
+                  .map(
+                    (DocumentSnapshot snapshot) =>
+                        Post.fromMap(snapshot.data()),
+                  )
+                  .toList(),
+            )
+        : [];
+  }
 
   Future<List<Post>> getProfileUserPosts(
           String organizationId, String profileUserId) async =>
@@ -245,14 +246,16 @@ class DatabaseManager {
               .collection(ORGANIZATION_PATH)
               .doc(organizationId)
               .collection(POSTS_PATH)
-              .where(GROUP_ID_FIELD, isEqualTo: null)
+              .where(GROUP_ID_FIELD, isEqualTo: '')
               .where(USER_ID_FIELD, isEqualTo: profileUserId)
               .orderBy(POST_DATE_TIME_FIELD, descending: true)
               .get()
               .then(
                 (QuerySnapshot querySnapshot) => querySnapshot.docs
-                    .map((DocumentSnapshot snapshot) =>
-                        Post.fromMap(snapshot.data()))
+                    .map(
+                      (DocumentSnapshot snapshot) =>
+                          Post.fromMap(snapshot.data()),
+                    )
                     .toList(),
               )
           : [];

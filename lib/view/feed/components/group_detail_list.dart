@@ -4,11 +4,14 @@ import 'package:provider/provider.dart';
 // data models
 import 'package:workplace_clone/data_models/group.dart';
 
+// utils
+import 'package:workplace_clone/utils/constants.dart';
+
 // components
 import 'package:workplace_clone/view/feed/components/group_detail_card.dart';
 
 // screens
-import 'package:workplace_clone/view/group/screens/group_screen.dart';
+import 'package:workplace_clone/view/post/screens/create_post_screen.dart';
 
 // view models
 import 'package:workplace_clone/view_models/feed_view_model.dart';
@@ -51,7 +54,9 @@ class GroupDetailList extends StatelessWidget {
   _openPostScreen(BuildContext context, Group group) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => GroupScreen(group: group)),
+      MaterialPageRoute(
+        builder: (_) => CreatePostScreen(postFrom: PostFrom.FEED, group: group),
+      ),
     );
   }
 }

@@ -11,3 +11,5 @@ enum GroupSortAndFilter {
   Top,
   LatestActivity
 }
+
+enum PostFrom { FEED, GROUP, PROFILE }

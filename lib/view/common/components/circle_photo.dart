@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// utils
+import 'package:workplace_clone/utils/styles.dart';
+
 class CirclePhoto extends StatelessWidget {
   final String photoUrl;
   final bool isImageFromFile;
@@ -19,7 +22,9 @@ class CirclePhoto extends StatelessWidget {
       backgroundImage: photoUrl == null
           ? null
           : isImageFromFile ? AssetImage(photoUrl) : Image.network(photoUrl),
-      child: photoUrl == null ? Text(initialLetter) : null,
+      child: photoUrl == null
+          ? Text(initialLetter, style: kPostIconInitialTextStyle)
+          : null,
     );
   }
 }

@@ -743,6 +743,16 @@ class S {
     );
   }
 
+  /// `Create Post`
+  String get createPostTitle {
+    return Intl.message(
+      'Create Post',
+      name: 'createPostTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `POST`
   String get postButton {
     return Intl.message(

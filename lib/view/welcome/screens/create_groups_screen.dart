@@ -43,7 +43,10 @@ class CreateGroupsScreen extends StatelessWidget {
       appBar: AppBar(
         actions: [
           FlatButton(
-            child: Text(S.of(context).skipButton, style: kFlatTextStyle),
+            child: Text(
+              S.of(context).skipButton,
+              style: kFlatButtonEnableTextStyle,
+            ),
             onPressed: () => _openInvitePeopleScreen(context, true),
           ),
         ],

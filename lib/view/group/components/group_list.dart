@@ -39,7 +39,7 @@ class GroupList extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 16.0),
                 child: Text(
                   S.of(context).yourGroups,
-                  style: kGroupMainLabelTextStyle,
+                  style: kMainLabelTextStyle,
                 ),
               ),
               FlatButton(
