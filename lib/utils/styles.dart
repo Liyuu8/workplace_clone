@@ -82,3 +82,7 @@ const kPostIconInitialTextStyle = TextStyle(
   fontSize: 24.0,
   color: Colors.white,
 );
+const kPostContentTextStyle = TextStyle(
+  fontFamily: kRegularFont,
+  fontSize: 20.0,
+);

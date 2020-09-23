@@ -24,26 +24,30 @@ class CreatePostChips extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(height: 8.0),
-          Row(
-            children: [
-              SizedBox(width: 10.0),
-              CirclePhoto(
-                photoUrl: currentUser.photoUrl,
-                isImageFromFile: false,
-                initialLetter: currentUser.fullName.substring(0, 1),
+          ListTile(
+            leading: CirclePhoto(
+              photoUrl: currentUser.photoUrl,
+              isImageFromFile: false,
+              initialLetter: currentUser.fullName.substring(0, 1),
+              radius: 20.0,
+            ),
+            title: ChoiceChip(
+              label: Wrap(
+                children: [
+                  Text(S.of(context).createPostInput),
+                  SizedBox(width: double.infinity),
+                ],
               ),
-              SizedBox(width: 10.0),
-              ChoiceChip(
-                label: Text(S.of(context).createPostInput),
-                padding: const EdgeInsets.all(8.0),
-                backgroundColor: Colors.white10,
-                selected: false,
-                onSelected: (_) => _openPostToGroupScreen(context),
-              ),
-              SizedBox(width: 10.0),
-            ],
+              padding: const EdgeInsets.all(8.0),
+              backgroundColor: Colors.white10,
+              selected: false,
+              onSelected: (_) => _openPostToGroupScreen(context),
+            ),
           ),
-          Divider(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Divider(),
+          ),
           Row(
             children: [
               SizedBox(width: 10.0),

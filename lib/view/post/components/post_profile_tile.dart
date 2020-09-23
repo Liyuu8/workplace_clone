@@ -49,7 +49,7 @@ class PostProfileTile extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  Icon(Icons.security, size: 16.0),
+                  Icon(Icons.group, size: 16.0),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
                     child: Text(

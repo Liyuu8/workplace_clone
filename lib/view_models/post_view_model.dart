@@ -3,15 +3,22 @@ import 'package:flutter/material.dart';
 // data models
 import 'package:workplace_clone/data_models/app_user.dart';
 import 'package:workplace_clone/data_models/organization.dart';
+import 'package:workplace_clone/data_models/post.dart';
 
 // repositories
+import 'package:workplace_clone/models/repositories/group_repository.dart';
 import 'package:workplace_clone/models/repositories/post_repository.dart';
 import 'package:workplace_clone/models/repositories/user_repository.dart';
 
 class PostViewModel extends ChangeNotifier {
   final UserRepository userRepository;
+  final GroupRepository groupRepository;
   final PostRepository postRepository;
-  PostViewModel({this.userRepository, this.postRepository});
+  PostViewModel({
+    this.userRepository,
+    this.groupRepository,
+    this.postRepository,
+  });
 
   Organization _usersOrganization;
   Organization get usersOrganization => _usersOrganization;
@@ -63,4 +70,12 @@ class PostViewModel extends ChangeNotifier {
     );
     _finishProcessing();
   }
+
+  Future<List<String>> getPostUserInfoAndPostedGroupName(Post post) async => [
+        ...(await userRepository.getUserPhotoUrlAndFullName(post.userId)),
+        post.groupId != ''
+            ? await postRepository.getGroupNameById(
+                usersOrganization.organizationId, post.groupId)
+            : '',
+      ];
 }

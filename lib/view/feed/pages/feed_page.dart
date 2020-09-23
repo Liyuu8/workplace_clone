@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 // components
 import 'package:workplace_clone/view/feed/components/create_post_chips.dart';
+import 'package:workplace_clone/view/post/components/post_card_tile.dart';
 
 // view models
 import 'package:workplace_clone/view_models/feed_view_model.dart';
@@ -26,7 +27,19 @@ class FeedPage extends StatelessWidget {
                     children: [
                       CreatePostChips(),
                       SizedBox(height: 8.0),
-                      // TODO: 以下、投稿リストを表示する
+                      ListView.builder(
+                        itemCount: feedViewModel.posts.length,
+                        itemBuilder: (context, index) => Column(
+                          children: [
+                            PostCardTile(
+                              post: feedViewModel.posts[index],
+                            ),
+                            SizedBox(height: 8.0),
+                          ],
+                        ),
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                      ),
                     ],
                   ),
                 ),

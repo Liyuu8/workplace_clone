@@ -71,12 +71,14 @@ List<SingleChildWidget> viewModels = [
     update: (_, userRepository, groupRepository, viewModel) =>
         viewModel..onUserRepositoryUpdated(userRepository),
   ),
-  ChangeNotifierProxyProvider2<UserRepository, PostRepository, PostViewModel>(
+  ChangeNotifierProxyProvider3<UserRepository, GroupRepository, PostRepository,
+      PostViewModel>(
     create: (context) => PostViewModel(
       userRepository: context.read<UserRepository>(),
+      groupRepository: context.read<GroupRepository>(),
       postRepository: context.read<PostRepository>(),
     ),
-    update: (_, userRepository, postRepository, viewModel) =>
+    update: (_, userRepository, groupRepository, postRepository, viewModel) =>
         viewModel..onUserRepositoryUpdated(userRepository),
   ),
 ];

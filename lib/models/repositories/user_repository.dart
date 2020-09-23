@@ -202,4 +202,9 @@ class UserRepository extends ChangeNotifier {
   Future<void> signOut() async {
     auth.signOut();
   }
+
+  Future<List<String>> getUserPhotoUrlAndFullName(String userId) async {
+    final user = await dbManager.getUserById(userId);
+    return [user.photoUrl, user.fullName];
+  }
 }

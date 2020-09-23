@@ -43,4 +43,8 @@ class PostRepository {
     );
     return resultList;
   }
+
+  Future<String> getGroupNameById(
+          String organizationId, String groupId) async =>
+      await dbManager.getGroupNameById(organizationId, groupId);
 }

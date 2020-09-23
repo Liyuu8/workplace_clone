@@ -25,6 +25,8 @@ const POST_DATE_TIME_FIELD = 'postDateTime';
 class DatabaseManager {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
+  // IS_EXISTED
+
   Future<bool> isUserExisted(User user) async {
     final QuerySnapshot query = await _db
         .collection(USERS_PATH)
@@ -32,6 +34,17 @@ class DatabaseManager {
         .get();
     return query.docs.isNotEmpty;
   }
+
+  Future<bool> _isPostExisted(String organizationId) async {
+    final query = await _db
+        .collection(ORGANIZATION_PATH)
+        .doc(organizationId)
+        .collection(POSTS_PATH)
+        .get();
+    return query.docs.isNotEmpty;
+  }
+
+  // INSERT
 
   Future<void> insertOrganization(Organization organization) async {
     await _db
@@ -85,6 +98,8 @@ class DatabaseManager {
       .collection(POSTS_PATH)
       .doc(post.postId)
       .set(post.toMap());
+
+  // GET
 
   Future<Organization> getOrganizationById(String organizationId) async {
     final QuerySnapshot query = await _db
@@ -162,13 +177,14 @@ class DatabaseManager {
             .toList();
   }
 
-  Future<bool> _isPostExisted(String organizationId) async {
+  Future<String> getGroupNameById(String organizationId, String groupId) async {
     final query = await _db
         .collection(ORGANIZATION_PATH)
         .doc(organizationId)
-        .collection(POSTS_PATH)
+        .collection(GROUPS_PATH)
+        .doc(groupId)
         .get();
-    return query.docs.isNotEmpty;
+    return Group.fromMap(query.data()).name;
   }
 
   Future<List<Post>> getFollowingGroupPosts(
