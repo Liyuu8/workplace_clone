@@ -29,7 +29,6 @@ class GroupCard extends StatelessWidget {
       leading: CirclePhoto(
         photoUrl: photoUrl,
         isImageFromFile: true,
-        initialLetter: title.substring(0, 1),
       ),
       subtitle: subTitle != null
           ? Text(subTitle, style: kChoiceLabelTextStyle)

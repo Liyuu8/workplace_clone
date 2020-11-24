@@ -13,3 +13,5 @@ enum GroupSortAndFilter {
 }
 
 enum PostFrom { FEED, GROUP, PROFILE }
+
+enum ProfileMode { MYSELF, OTHER }

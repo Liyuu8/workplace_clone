@@ -1383,11 +1383,71 @@ class S {
     );
   }
 
+  /// `Follow`
+  String get follow {
+    return Intl.message(
+      'Follow',
+      name: 'follow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Message`
+  String get message {
+    return Intl.message(
+      'Message',
+      name: 'message',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send Thanks`
+  String get sendThanks {
+    return Intl.message(
+      'Send Thanks',
+      name: 'sendThanks',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Works at `
+  String get worksAt {
+    return Intl.message(
+      'Works at ',
+      name: 'worksAt',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `See Your About Info`
   String get seeYourAboutInfo {
     return Intl.message(
       'See Your About Info',
       name: 'seeYourAboutInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `See `
+  String get see {
+    return Intl.message(
+      'See ',
+      name: 'see',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `'s About Info`
+  String get aboutInfo {
+    return Intl.message(
+      '\'s About Info',
+      name: 'aboutInfo',
       desc: '',
       args: [],
     );
@@ -1408,6 +1468,26 @@ class S {
     return Intl.message(
       'Edit',
       name: 'edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` Entries`
+  String get spaceEntries {
+    return Intl.message(
+      ' Entries',
+      name: 'spaceEntries',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` Groups`
+  String get spaceGroups {
+    return Intl.message(
+      ' Groups',
+      name: 'spaceGroups',
       desc: '',
       args: [],
     );
@@ -1558,6 +1638,16 @@ class S {
     return Intl.message(
       'Log Out',
       name: 'logOut',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `If I feel like it, implement it!`
+  String get notImplement {
+    return Intl.message(
+      'If I feel like it, implement it!',
+      name: 'notImplement',
       desc: '',
       args: [],
     );

@@ -47,4 +47,8 @@ class PostRepository {
   Future<String> getGroupNameById(
           String organizationId, String groupId) async =>
       await dbManager.getGroupNameById(organizationId, groupId);
+
+  Future<List<Post>> getProfileUserPosts(
+          String organizationId, AppUser profileUser) async =>
+      await dbManager.getProfileUserPosts(organizationId, profileUser.userId);
 }

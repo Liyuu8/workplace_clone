@@ -187,6 +187,23 @@ class DatabaseManager {
     return Group.fromMap(query.data()).name;
   }
 
+  Future<List<Group>> getFollowingGroups(
+      String organizationId, String appUserId) async {
+    final List<String> groupIds =
+        await _getFollowingGroupIds(organizationId, appUserId);
+    final QuerySnapshot query = await _db
+        .collection(ORGANIZATION_PATH)
+        .doc(organizationId)
+        .collection(GROUPS_PATH)
+        .where(GROUP_ID_FIELD, whereIn: groupIds)
+        .get();
+    return query.docs.length == 0
+        ? []
+        : query.docs
+            .map((DocumentSnapshot snapshot) => Group.fromMap(snapshot.data()))
+            .toList();
+  }
+
   Future<List<Post>> getFollowingGroupPosts(
       String organizationId, String appUserId) async {
     final List<String> groupIds =
@@ -262,7 +279,6 @@ class DatabaseManager {
               .collection(ORGANIZATION_PATH)
               .doc(organizationId)
               .collection(POSTS_PATH)
-              .where(GROUP_ID_FIELD, isEqualTo: '')
               .where(USER_ID_FIELD, isEqualTo: profileUserId)
               .orderBy(POST_DATE_TIME_FIELD, descending: true)
               .get()

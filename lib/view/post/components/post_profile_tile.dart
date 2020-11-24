@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 // data models
 import 'package:workplace_clone/data_models/app_user.dart';
@@ -30,6 +31,7 @@ class PostProfileTile extends StatelessWidget {
         photoUrl: currentUser.photoUrl,
         isImageFromFile: false,
         initialLetter: currentUser.fullName.substring(0, 1),
+        initialLetterTextStyle: kPostIconInitialTextStyle,
         radius: 26.0,
       ),
       title: Padding(
@@ -39,7 +41,9 @@ class PostProfileTile extends StatelessWidget {
       subtitle: Row(
         children: [
           InkWell(
-            onTap: () => null, // TODO:
+            onTap: () => Fluttertoast.showToast(
+              msg: S.of(context).notImplement,
+            ),
             borderRadius: BorderRadius.circular(10),
             child: Container(
               padding: EdgeInsets.all(4.0),

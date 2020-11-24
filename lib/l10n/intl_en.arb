@@ -134,9 +134,17 @@
   "addCover": "Add Cover Photo",
   "editProfile": "Edit Profile",
   "activityLog": "Activity Log",
+  "follow": "Follow",
+  "message": "Message",
+  "sendThanks": "Send Thanks",
+  "worksAt": "Works at ",
   "seeYourAboutInfo": "See Your About Info",
+  "see": "See ",
+  "aboutInfo": "'s About Info",
   "skills": "Skills",
   "edit": "Edit",
+  "spaceEntries": " Entries",
+  "spaceGroups": " Groups",
   "org": "Org",
   "viewOrgChart": "View Org Chart",
   "seeAll": "See All",
@@ -151,5 +159,6 @@
   "orgChart": "Org Chart",
   "inviteCoworkers": "Invite Coworkers",
   "helpAndSettings": "Help & Settings",
-  "logOut": "Log Out"
+  "logOut": "Log Out",
+  "notImplement": "If I feel like it, implement it!"
 }

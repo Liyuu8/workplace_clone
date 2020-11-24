@@ -8,12 +8,18 @@ import 'package:workplace_clone/data_models/post.dart';
 import 'package:workplace_clone/generated/l10n.dart';
 
 // utils
+import 'package:workplace_clone/utils/constants.dart';
+
+// utils
 import 'package:workplace_clone/utils/functions.dart';
 import 'package:workplace_clone/utils/styles.dart';
 
 // components
 import 'package:workplace_clone/view/common/components/circle_photo.dart';
 import 'package:workplace_clone/view/post/components/post_card_button.dart';
+
+// screens
+import 'package:workplace_clone/view/profile/screens/profile_screen.dart';
 
 // view models
 import 'package:workplace_clone/view_models/post_view_model.dart';
@@ -25,6 +31,8 @@ class PostCardTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final postViewModel = Provider.of<PostViewModel>(context, listen: false);
+    final currentUserId = postViewModel.currentUser.userId;
+    final postUserId = post.userId;
 
     return FutureBuilder(
       future: postViewModel.getPostUserInfoAndPostedGroupName(post),
@@ -38,11 +46,19 @@ class PostCardTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ListTile(
-                    leading: CirclePhoto(
-                      photoUrl: snapshot.data[0],
-                      isImageFromFile: false,
-                      initialLetter: snapshot.data[1].substring(0, 1),
-                      radius: 20.0,
+                    leading: InkWell(
+                      onTap: () => _openProfileScreen(
+                        context,
+                        currentUserId,
+                        postUserId,
+                      ),
+                      child: CirclePhoto(
+                        photoUrl: snapshot.data[0],
+                        isImageFromFile: false,
+                        initialLetter: snapshot.data[1].substring(0, 1),
+                        initialLetterTextStyle: kPostIconInitialTextStyle,
+                        radius: 20.0,
+                      ),
                     ),
                     title: Padding(
                       padding: const EdgeInsets.only(bottom: 4.0),
@@ -110,6 +126,23 @@ class PostCardTile extends StatelessWidget {
               ),
             )
           : Container(),
+    );
+  }
+
+  _openProfileScreen(
+    BuildContext context,
+    String currentUserId,
+    String postUserId,
+  ) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => ProfileScreen(
+          profileMode: postUserId == currentUserId
+              ? ProfileMode.MYSELF
+              : ProfileMode.OTHER,
+        ),
+      ),
     );
   }
 }

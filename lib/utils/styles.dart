@@ -86,3 +86,27 @@ const kPostContentTextStyle = TextStyle(
   fontFamily: kRegularFont,
   fontSize: 20.0,
 );
+
+// Profile
+const kProfileUserNameTextStyle = TextStyle(
+  fontFamily: kBoldFont,
+  fontSize: 30.0,
+);
+const kProfileIconInitialTextStyle = TextStyle(
+  fontFamily: kBoldFont,
+  fontSize: 80.0,
+  color: Colors.white,
+);
+const kProfileMainLabelTextStyle = TextStyle(
+  fontFamily: kBoldFont,
+  fontSize: 20.0,
+);
+const kProfileSubLabelTextStyle = TextStyle(
+  fontFamily: kRegularFont,
+  fontSize: 18.0,
+  color: Colors.grey,
+);
+const kProfileLabelDetailTextStyle = TextStyle(
+  fontFamily: kRegularFont,
+  fontSize: 16.0,
+);

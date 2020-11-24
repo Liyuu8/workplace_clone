@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+// generated
+import 'package:workplace_clone/generated/l10n.dart';
 
 // utils
 import 'package:workplace_clone/utils/styles.dart';
@@ -10,8 +14,6 @@ import 'package:workplace_clone/view/menu/pages/menu_page.dart';
 import 'package:workplace_clone/view/notification/pages/notification_page.dart';
 
 // screens
-import 'package:workplace_clone/view/chat/screens/chat_screen.dart';
-import 'package:workplace_clone/view/search/screens/search_screen.dart';
 import 'package:workplace_clone/view/group/screens/new_group_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -61,12 +63,16 @@ class _HomeScreenState extends State<HomeScreen>
           IconButton(
             icon: Icon(Icons.search),
             color: Color(kWorkplaceMainColor),
-            onPressed: () => _openSearchScreen(context),
+            onPressed: () => Fluttertoast.showToast(
+              msg: S.of(context).notImplement,
+            ),
           ),
           IconButton(
             icon: Icon(Icons.message),
             color: Color(kWorkplaceMainColor),
-            onPressed: () => _openChatScreen(context),
+            onPressed: () => Fluttertoast.showToast(
+              msg: S.of(context).notImplement,
+            ),
           ),
         ],
       ),
@@ -85,20 +91,6 @@ class _HomeScreenState extends State<HomeScreen>
               onPressed: () => _openNewGroupScreen(context),
             )
           : null,
-    );
-  }
-
-  _openSearchScreen(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => SearchScreen()),
-    );
-  }
-
-  _openChatScreen(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => ChatScreen()),
     );
   }
 
