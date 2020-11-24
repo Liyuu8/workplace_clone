@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+
+// generated
+import 'package:workplace_clone/generated/l10n.dart';
 
 // data models
 import 'package:workplace_clone/data_models/app_user.dart';
@@ -47,7 +51,9 @@ class ProfileScreen extends StatelessWidget {
                         children: [
                           Center(
                             child: InkWell(
-                              onTap: () => null, // TODO: プロフィール画像を変更する
+                              onTap: () => Fluttertoast.showToast(
+                                msg: S.of(context).comingSoon,
+                              ), // TODO: プロフィール画像を変更する
                               child: CirclePhoto(
                                 photoUrl: model.profileUser.photoUrl,
                                 isImageFromFile: false,

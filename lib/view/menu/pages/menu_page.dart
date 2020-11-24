@@ -19,7 +19,7 @@ class MenuPage extends StatelessWidget {
     final welcomeViewModel =
         Provider.of<WelcomeViewModel>(context, listen: false);
 
-    // TODO:
+    // TODO: メニューページの実装
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,

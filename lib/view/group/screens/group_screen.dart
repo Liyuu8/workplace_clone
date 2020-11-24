@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:workplace_clone/generated/l10n.dart';
 
 // data models
 import 'package:workplace_clone/data_models/group.dart';
@@ -9,14 +10,13 @@ class GroupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO:
     return Scaffold(
       appBar: AppBar(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('TODO: GroupScreen'),
+            Text(S.of(context).notImplement),
             Text('groupName is ${group.name}'),
           ],
         ),

@@ -160,5 +160,6 @@
   "inviteCoworkers": "Invite Coworkers",
   "helpAndSettings": "Help & Settings",
   "logOut": "Log Out",
-  "notImplement": "気が向いたら実装する！"
+  "notImplement": "気が向いたら実装する！",
+  "comingSoon": "Coming Soon!"
 }

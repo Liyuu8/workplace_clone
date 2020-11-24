@@ -75,7 +75,7 @@ class GroupViewModel extends ChangeNotifier {
     _finishProcessing();
   }
 
-  // TODO:
+  // TODO: グループリストのソート機能
   updateGroupSortAndFilterSetting(int selectedIndex) {
     if (selectedIndex != null) {
       _groupSortAndFilterIndex = selectedIndex;

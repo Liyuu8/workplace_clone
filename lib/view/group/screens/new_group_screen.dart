@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:workplace_clone/generated/l10n.dart';
 
 class NewGroupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO:
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-        child: Text('TODO: NewGroupScreen'),
+        child: Text(S.of(context).notImplement),
       ),
     );
   }

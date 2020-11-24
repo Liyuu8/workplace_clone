@@ -36,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "checkEmailDetail" : MessageLookupByLibrary.simpleMessage("Enter your code to get started. We\'ve sent it to"),
     "closed" : MessageLookupByLibrary.simpleMessage("Close"),
     "closedDetail" : MessageLookupByLibrary.simpleMessage("Anyone can find the group and see who\'s in it. Only members can see posts."),
+    "comingSoon" : MessageLookupByLibrary.simpleMessage("Coming Soon!"),
     "comment" : MessageLookupByLibrary.simpleMessage("Comment"),
     "comments" : MessageLookupByLibrary.simpleMessage("Comments"),
     "continueButton" : MessageLookupByLibrary.simpleMessage("CONTINUE"),

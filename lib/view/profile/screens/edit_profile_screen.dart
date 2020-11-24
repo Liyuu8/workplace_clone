@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// generated
+import 'package:workplace_clone/generated/l10n.dart';
+
 class EditProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -7,7 +10,7 @@ class EditProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-        child: Text('TODO: EditProfileScreen'),
+        child: Text(S.of(context).comingSoon),
       ),
     );
   }

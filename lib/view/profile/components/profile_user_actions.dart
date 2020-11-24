@@ -53,7 +53,9 @@ class ProfileUserActions extends StatelessWidget {
                 child: ProfileMenuChip(
                   iconData: Icons.add_box,
                   menuText: S.of(context).follow,
-                  onPressed: () => null, // TODO: ユーザーフォロー機能
+                  onPressed: () => Fluttertoast.showToast(
+                    msg: S.of(context).comingSoon,
+                  ), // TODO: ユーザーフォロー機能
                 ),
               ),
               Expanded(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 // generated
@@ -41,7 +42,11 @@ class PostToGroupScreen extends StatelessWidget {
                         vertical: 18.0,
                         horizontal: 12.0,
                       ),
-                      child: SearchGroups(onSearch: (_) => null), // TODO:
+                      child: SearchGroups(
+                        onSearch: (_) => Fluttertoast.showToast(
+                          msg: S.of(context).notImplement,
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),

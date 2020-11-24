@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 // data models
@@ -83,6 +84,8 @@ class GroupList extends StatelessWidget {
       selectedIndex: groupViewModel.groupSortAndFilterIndex,
     );
     groupViewModel.updateGroupSortAndFilterSetting(selectedIndex);
+
+    Fluttertoast.showToast(msg: S.of(context).notImplement);
   }
 
   _openGroupScreen(BuildContext context, Group group) {

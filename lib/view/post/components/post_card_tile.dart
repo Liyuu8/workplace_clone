@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 // data models
@@ -83,11 +84,17 @@ class PostCardTile extends StatelessWidget {
                     ),
                     trailing: IconButton(
                       icon: Icon(Icons.more_horiz),
-                      onPressed: () => null, // TODO:
+                      onPressed: () => Fluttertoast.showToast(
+                        msg: S.of(context).notImplement,
+                      ),
                     ),
                   ),
                   InkWell(
-                    onTap: () => null, // TODO:
+                    onTap: () => Fluttertoast.showToast(
+                      msg: S.of(context).comingSoon,
+                    ),
+                    // TODO: RichTextの実装
+                    // https://github.com/Liyuu8/insta_clone/blob/master/lib/view/common/components/comment_rich_text.dart
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Text(post.content, style: kPostContentTextStyle),
@@ -103,21 +110,27 @@ class PostCardTile extends StatelessWidget {
                         child: PostCardButton(
                           iconData: Icons.thumb_up,
                           buttonText: S.of(context).like,
-                          onTap: () => null, // TODO:
+                          onTap: () => Fluttertoast.showToast(
+                            msg: S.of(context).comingSoon,
+                          ), // TODO: いいね機能の実装
                         ),
                       ),
                       Expanded(
                         child: PostCardButton(
                           iconData: Icons.comment,
                           buttonText: S.of(context).comment,
-                          onTap: () => null, // TODO:
+                          onTap: () => Fluttertoast.showToast(
+                            msg: S.of(context).comingSoon,
+                          ), // TODO: コメント機能の実装
                         ),
                       ),
                       Expanded(
                         child: PostCardButton(
                           iconData: Icons.share,
                           buttonText: S.of(context).share,
-                          onTap: () => null, // TODO:
+                          onTap: () => Fluttertoast.showToast(
+                            msg: S.of(context).comingSoon,
+                          ), // TODO: 共有機能の実装
                         ),
                       ),
                     ],
