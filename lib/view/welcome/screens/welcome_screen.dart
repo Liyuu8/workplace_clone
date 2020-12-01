@@ -1,4 +1,6 @@
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 // generated
 import 'package:workplace_clone/generated/l10n.dart';
@@ -14,7 +16,21 @@ import 'package:workplace_clone/view/welcome/components/white_button.dart';
 // screens
 import 'package:workplace_clone/view/welcome/screens/entry_email_screen.dart';
 
-class WelcomeScreen extends StatelessWidget {
+// view model
+import 'package:workplace_clone/view_models/welcome_view_model.dart';
+
+class WelcomeScreen extends StatefulWidget {
+  @override
+  _WelcomeScreenState createState() => _WelcomeScreenState();
+}
+
+class _WelcomeScreenState extends State<WelcomeScreen> {
+  @override
+  void initState() {
+    _useDynamicLink();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,6 +90,45 @@ class WelcomeScreen extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (_) => EntryEmailScreen(mode: SignUpOrLogInMode.LOG_IN),
+      ),
+    );
+  }
+
+  _useDynamicLink() async {
+    FirebaseDynamicLinks.instance.onLink(
+      onSuccess: (PendingDynamicLinkData dynamicLink) async {
+        _openInvitedSignUpScreen(context, dynamicLink);
+      },
+      onError: (OnLinkErrorException e) async {
+        print('WelcomeScreen._useDynamicLink: ${e.message}');
+      },
+    );
+
+    final dynamicLink = await FirebaseDynamicLinks.instance.getInitialLink();
+    _openInvitedSignUpScreen(context, dynamicLink);
+  }
+
+  _openInvitedSignUpScreen(
+    BuildContext context,
+    PendingDynamicLinkData dynamicLink,
+  ) async {
+    if (dynamicLink == null) {
+      return;
+    }
+    // [issue] https://github.com/FirebaseExtended/flutterfire/issues/1740
+    // final organizationId = dynamicLink.link.queryParameters['organizationId'];
+    final organizationId = dynamicLink.link.toString().split('/').last;
+    final welcomeViewModel = context.read<WelcomeViewModel>();
+    if (!(await welcomeViewModel.isOrganizationExisted(organizationId))) {
+      return;
+    }
+    welcomeViewModel.updateOrganizationId(organizationId);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => EntryEmailScreen(
+          mode: SignUpOrLogInMode.INVITED_SIGN_IN,
+        ),
       ),
     );
   }

@@ -99,6 +99,7 @@ class UserRepository extends ChangeNotifier {
         name: organizationName,
         size: organizationSize,
         jobTitle: jobTitle,
+        isInit: true,
       );
       await dbManager.insertOrganization(newOrganization);
 
@@ -206,5 +207,12 @@ class UserRepository extends ChangeNotifier {
   Future<List<String>> getUserPhotoUrlAndFullName(String userId) async {
     final user = await dbManager.getUserById(userId);
     return [user.photoUrl, user.fullName];
+  }
+
+  Future<bool> isOrganizationExisted(String organizationId) async =>
+      dbManager.isOrganizationExisted(organizationId);
+
+  Future<void> initializeCompleted() async {
+    await dbManager.initializeCompleted(_usersOrganization);
   }
 }

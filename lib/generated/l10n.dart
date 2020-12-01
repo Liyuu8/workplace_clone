@@ -584,10 +584,10 @@ class S {
   }
 
   /// `Invite People to Join `
-  String get invitePeople {
+  String get invitePeopleToJoin {
     return Intl.message(
       'Invite People to Join ',
-      name: 'invitePeople',
+      name: 'invitePeopleToJoin',
       desc: '',
       args: [],
     );
@@ -1628,6 +1628,16 @@ class S {
     return Intl.message(
       'Help & Settings',
       name: 'helpAndSettings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invite People`
+  String get invitePeople {
+    return Intl.message(
+      'Invite People',
+      name: 'invitePeople',
       desc: '',
       args: [],
     );

@@ -101,7 +101,7 @@ class _EntryEmailScreenState extends State<EntryEmailScreen> {
   _openEntryPasswordScreen(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => EntryPasswordScreen()),
+      MaterialPageRoute(builder: (_) => EntryPasswordScreen(mode: widget.mode)),
     );
   }
 }

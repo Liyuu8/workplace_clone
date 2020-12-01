@@ -27,6 +27,7 @@ class WelcomeViewModel extends ChangeNotifier {
 
   onUserRepositoryUpdated(UserRepository userRepository) {
     _usersOrganization = userRepository.usersOrganization;
+    _isInit = _usersOrganization?.isInit ?? true;
     _currentUser = userRepository.currentUser;
     _status = userRepository.status;
     print('WelcomeViewModel.onUserRepositoryUpdated: status is $_status');
@@ -54,6 +55,9 @@ class WelcomeViewModel extends ChangeNotifier {
   String _jobTitle = '';
   String get jobTitle => _jobTitle;
 
+  bool _isInit = true;
+  bool get isInit => _isInit;
+
   List<bool> _initialGroupCheckList = [true, true, true, true];
   List<bool> get initialGroupCheckList => _initialGroupCheckList;
 
@@ -80,7 +84,7 @@ class WelcomeViewModel extends ChangeNotifier {
   Future<void> signUpIntoExistingOrganization() async =>
       await userRepository.signUpIntoExistingOrganization(
         _email,
-        _fullName,
+        _email.split('@').first, // TODO: fullName入力用のフォーム画面の実装
         _password,
         _invitationOrganizationId,
       );
@@ -162,7 +166,16 @@ class WelcomeViewModel extends ChangeNotifier {
         _currentUser.userId,
       );
     }
+    userRepository.initializeCompleted();
     // TODO: firebase_dynamic_links を利用して、ユーザーへの招待リンクを生成・送信したい
+  }
+
+  Future<bool> isOrganizationExisted(String invitationOrganizationId) async =>
+      userRepository.isOrganizationExisted(invitationOrganizationId);
+
+  updateOrganizationId(String invitationOrganizationId) {
+    _invitationOrganizationId = invitationOrganizationId;
+    notifyListeners();
   }
 
   Future<void> signOut() async => userRepository.signOut();

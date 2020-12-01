@@ -44,6 +44,14 @@ class DatabaseManager {
     return query.docs.isNotEmpty;
   }
 
+  Future<bool> isOrganizationExisted(String organizationId) async {
+    final QuerySnapshot query = await _db
+        .collection(ORGANIZATION_PATH)
+        .where(ORGANIZATION_ID_FIELD, isEqualTo: organizationId)
+        .get();
+    return query.docs.isNotEmpty;
+  }
+
   // INSERT
 
   Future<void> insertOrganization(Organization organization) async {
@@ -72,6 +80,7 @@ class DatabaseManager {
           .doc(group.groupId)
           .set(group.toMap());
 
+  // TODO: 新メンバーを招待した際に呼び出す
   Future<void> insertUserToGroup(
       String appUserId, String groupId, String organizationId) async {
     await _db
@@ -188,43 +197,54 @@ class DatabaseManager {
   }
 
   Future<List<Group>> getFollowingGroups(
-      String organizationId, String appUserId) async {
-    final List<String> groupIds =
-        await _getFollowingGroupIds(organizationId, appUserId);
-    final QuerySnapshot query = await _db
-        .collection(ORGANIZATION_PATH)
-        .doc(organizationId)
-        .collection(GROUPS_PATH)
-        .where(GROUP_ID_FIELD, whereIn: groupIds)
-        .get();
-    return query.docs.length == 0
+    String organizationId,
+    String appUserId,
+  ) async {
+    final List<String> groupIds = await _getFollowingGroupIds(
+      organizationId,
+      appUserId,
+    );
+    return groupIds.length == 0
         ? []
-        : query.docs
-            .map((DocumentSnapshot snapshot) => Group.fromMap(snapshot.data()))
-            .toList();
+        : await _db
+            .collection(ORGANIZATION_PATH)
+            .doc(organizationId)
+            .collection(GROUPS_PATH)
+            .where(GROUP_ID_FIELD, whereIn: groupIds)
+            .get()
+            .then(
+              (QuerySnapshot querySnapshot) => querySnapshot.docs
+                  .map(
+                    (DocumentSnapshot snapshot) =>
+                        Group.fromMap(snapshot.data()),
+                  )
+                  .toList(),
+            );
   }
 
   Future<List<Post>> getFollowingGroupPosts(
       String organizationId, String appUserId) async {
     final List<String> groupIds =
         await _getFollowingGroupIds(organizationId, appUserId);
-    return await _isPostExisted(organizationId)
-        ? await _db
-            .collection(ORGANIZATION_PATH)
-            .doc(organizationId)
-            .collection(POSTS_PATH)
-            .where(GROUP_ID_FIELD, whereIn: groupIds)
-            .orderBy(POST_DATE_TIME_FIELD, descending: true)
-            .get()
-            .then(
-              (QuerySnapshot querySnapshot) => querySnapshot.docs
-                  .map(
-                    (DocumentSnapshot snapshot) =>
-                        Post.fromMap(snapshot.data()),
-                  )
-                  .toList(),
-            )
-        : [];
+    return groupIds.length == 0
+        ? []
+        : await _isPostExisted(organizationId)
+            ? await _db
+                .collection(ORGANIZATION_PATH)
+                .doc(organizationId)
+                .collection(POSTS_PATH)
+                .where(GROUP_ID_FIELD, whereIn: groupIds)
+                .orderBy(POST_DATE_TIME_FIELD, descending: true)
+                .get()
+                .then(
+                  (QuerySnapshot querySnapshot) => querySnapshot.docs
+                      .map(
+                        (DocumentSnapshot snapshot) =>
+                            Post.fromMap(snapshot.data()),
+                      )
+                      .toList(),
+                )
+            : [];
   }
 
   Future<List<String>> _getFollowingUserIds(
@@ -291,4 +311,10 @@ class DatabaseManager {
                     .toList(),
               )
           : [];
+
+  Future<void> initializeCompleted(Organization organization) async {
+    final DocumentReference reference =
+        _db.collection(ORGANIZATION_PATH).doc(organization.organizationId);
+    await reference.update(organization.copyWith(isInit: false).toMap());
+  }
 }

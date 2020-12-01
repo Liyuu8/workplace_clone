@@ -20,6 +20,9 @@ import 'package:workplace_clone/view/welcome/screens/progressing_screen.dart';
 import 'package:workplace_clone/view_models/welcome_view_model.dart';
 
 class EntryPasswordScreen extends StatefulWidget {
+  final SignUpOrLogInMode mode;
+  EntryPasswordScreen({@required this.mode});
+
   @override
   _EntryPasswordScreenState createState() => _EntryPasswordScreenState();
 }
@@ -84,7 +87,7 @@ class _EntryPasswordScreenState extends State<EntryPasswordScreen> {
               builder: (context, model, child) => BlueButton(
                 title: S.of(context).continueButton,
                 isContentEmpty: model.isPasswordEmpty(),
-                onPressed: () => _openProcessingScreen(context),
+                onPressed: () => _openProcessingScreen(context, widget.mode),
               ),
             ),
           ],
@@ -98,11 +101,11 @@ class _EntryPasswordScreenState extends State<EntryPasswordScreen> {
     welcomeViewModel.updatePasswordField(_passwordEditController.text);
   }
 
-  _openProcessingScreen(BuildContext context) {
+  _openProcessingScreen(BuildContext context, SignUpOrLogInMode mode) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => ProgressingScreen(mode: SignUpOrLogInMode.LOG_IN),
+        builder: (_) => ProgressingScreen(mode: mode),
       ),
     );
   }

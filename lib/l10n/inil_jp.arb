@@ -54,7 +54,7 @@
   "createGroupsInsideChoiceMain": "General",
   "createGroupsInsideChoiceMainDetail": "Created for you.",
   "createGroupsButton": "Create Groups",
-  "invitePeople": "Invite People to Join ",
+  "invitePeopleToJoin": "Invite People to Join ",
   "invitePeopleDetail1": "It's best to add a few people you work with.",
   "invitePeopleInput": "Enter someone's email",
   "invitePeopleDetail2": "Inviting people outside a verified or whitelisted email domain will show them your email address.",
@@ -159,6 +159,7 @@
   "orgChart": "Org Chart",
   "inviteCoworkers": "Invite Coworkers",
   "helpAndSettings": "Help & Settings",
+  "invitePeople": "Invite People",
   "logOut": "Log Out",
   "notImplement": "気が向いたら実装する！",
   "comingSoon": "Coming Soon!"

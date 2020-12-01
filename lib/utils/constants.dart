@@ -1,4 +1,4 @@
-enum SignUpOrLogInMode { SIGN_UP, LOG_IN }
+enum SignUpOrLogInMode { SIGN_UP, LOG_IN, INVITED_SIGN_IN }
 
 enum UserDetailEntryFieldLabel { FULL_NAME, PASSWORD, ORGANIZATION_NAME }
 

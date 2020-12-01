@@ -72,7 +72,7 @@ class _InvitePeopleScreenState extends State<InvitePeopleScreen> {
               children: [
                 Center(
                   child: Text(
-                    S.of(context).invitePeople + organizationName,
+                    S.of(context).invitePeopleToJoin + organizationName,
                     style: kWelcomeLabelTextStyle,
                   ),
                 ),

@@ -10,6 +10,7 @@ import 'package:workplace_clone/models/repositories/user_repository.dart';
 // utils
 import 'package:workplace_clone/utils/constants.dart';
 import 'package:workplace_clone/utils/keys.dart';
+import 'package:workplace_clone/view/common/screens/home_screen.dart';
 
 // screens
 import 'package:workplace_clone/view/welcome/screens/create_groups_screen.dart';
@@ -31,7 +32,9 @@ class ProgressingScreen extends StatelessWidget {
     Future(
       () => mode == SignUpOrLogInMode.SIGN_UP
           ? welcomeViewModel.signUpAndCreateOrganization()
-          : welcomeViewModel.logIn(),
+          : mode == SignUpOrLogInMode.LOG_IN
+              ? welcomeViewModel.logIn()
+              : welcomeViewModel.signUpIntoExistingOrganization(),
     );
 
     return Scaffold(
@@ -77,7 +80,9 @@ class ProgressingScreen extends StatelessWidget {
                               onPressed: () => Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (_) => CreateGroupsScreen(),
+                                  builder: (_) => model.isInit
+                                      ? CreateGroupsScreen()
+                                      : HomeScreen(),
                                 ),
                                 (_) => false,
                               ),
