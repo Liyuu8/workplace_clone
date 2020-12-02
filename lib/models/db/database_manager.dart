@@ -19,6 +19,7 @@ const FOLLOWINGS_PATH = 'followings';
 const ORGANIZATION_ID_FIELD = 'organizationId';
 const USER_ID_FIELD = 'userId';
 const GROUP_ID_FIELD = 'groupId';
+const IS_INIT_FIELD = 'isInit';
 const POST_ID_FIELD = 'postId';
 const POST_DATE_TIME_FIELD = 'postDateTime';
 
@@ -80,9 +81,11 @@ class DatabaseManager {
           .doc(group.groupId)
           .set(group.toMap());
 
-  // TODO: 新メンバーを招待した際に呼び出す
   Future<void> insertUserToGroup(
-      String appUserId, String groupId, String organizationId) async {
+    String appUserId,
+    String groupId,
+    String organizationId,
+  ) async {
     await _db
         .collection(ORGANIZATION_PATH)
         .doc(organizationId)
@@ -149,7 +152,9 @@ class DatabaseManager {
   }
 
   Future<List<String>> getGroupMemberUserIds(
-      String organizationId, String groupId) async {
+    String organizationId,
+    String groupId,
+  ) async {
     final QuerySnapshot query = await _db
         .collection(ORGANIZATION_PATH)
         .doc(organizationId)
@@ -168,7 +173,9 @@ class DatabaseManager {
   }
 
   Future<List<String>> _getFollowingGroupIds(
-      String organizationId, String appUserId) async {
+    String organizationId,
+    String appUserId,
+  ) async {
     final QuerySnapshot query = await _db
         .collection(USERS_PATH)
         .doc(appUserId)
@@ -223,7 +230,9 @@ class DatabaseManager {
   }
 
   Future<List<Post>> getFollowingGroupPosts(
-      String organizationId, String appUserId) async {
+    String organizationId,
+    String appUserId,
+  ) async {
     final List<String> groupIds =
         await _getFollowingGroupIds(organizationId, appUserId);
     return groupIds.length == 0
@@ -268,7 +277,9 @@ class DatabaseManager {
   }
 
   Future<List<Post>> getMyselfAndFollowingUsersPosts(
-      String organizationId, String myUserId) async {
+    String organizationId,
+    String myUserId,
+  ) async {
     final List<String> userIds =
         (await _getFollowingUserIds(organizationId, myUserId))
             .followedBy([myUserId]).toList();
@@ -293,7 +304,9 @@ class DatabaseManager {
   }
 
   Future<List<Post>> getProfileUserPosts(
-          String organizationId, String profileUserId) async =>
+    String organizationId,
+    String profileUserId,
+  ) async =>
       await _isPostExisted(organizationId)
           ? await _db
               .collection(ORGANIZATION_PATH)
@@ -311,6 +324,24 @@ class DatabaseManager {
                     .toList(),
               )
           : [];
+
+  Future<List<String>> getInitialGroupIds(String organizationId) async =>
+      await _db
+          .collection(ORGANIZATION_PATH)
+          .doc(organizationId)
+          .collection(GROUPS_PATH)
+          .where(IS_INIT_FIELD, isEqualTo: true)
+          .get()
+          .then(
+            (QuerySnapshot querySnapshot) => querySnapshot.docs
+                .map(
+                  (DocumentSnapshot snapshot) =>
+                      Group.fromMap(snapshot.data()).groupId,
+                )
+                .toList(),
+          );
+
+  // UPDATE
 
   Future<void> initializeCompleted(Organization organization) async {
     final DocumentReference reference =

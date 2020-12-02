@@ -7,6 +7,7 @@ class Group {
   final String privacy;
   final String description;
   final String photoUrl;
+  final bool isInit;
 
 //<editor-fold desc="Data Methods" defaultstate="collapsed">
 
@@ -17,6 +18,7 @@ class Group {
     @required this.privacy,
     @required this.description,
     @required this.photoUrl,
+    @required this.isInit,
   });
 
   Group copyWith({
@@ -26,13 +28,15 @@ class Group {
     String privacy,
     String description,
     String photoUrl,
+    bool isInit,
   }) {
     if ((groupId == null || identical(groupId, this.groupId)) &&
         (name == null || identical(name, this.name)) &&
         (type == null || identical(type, this.type)) &&
         (privacy == null || identical(privacy, this.privacy)) &&
         (description == null || identical(description, this.description)) &&
-        (photoUrl == null || identical(photoUrl, this.photoUrl))) {
+        (photoUrl == null || identical(photoUrl, this.photoUrl)) &&
+        (isInit == null || identical(isInit, this.isInit))) {
       return this;
     }
 
@@ -43,12 +47,13 @@ class Group {
       privacy: privacy ?? this.privacy,
       description: description ?? this.description,
       photoUrl: photoUrl ?? this.photoUrl,
+      isInit: isInit ?? this.isInit,
     );
   }
 
   @override
   String toString() {
-    return 'Group{groupId: $groupId, name: $name, type: $type, privacy: $privacy, description: $description, photoUrl: $photoUrl}';
+    return 'Group{groupId: $groupId, name: $name, type: $type, privacy: $privacy, description: $description, photoUrl: $photoUrl, isInit: $isInit}';
   }
 
   @override
@@ -61,7 +66,8 @@ class Group {
           type == other.type &&
           privacy == other.privacy &&
           description == other.description &&
-          photoUrl == other.photoUrl);
+          photoUrl == other.photoUrl &&
+          isInit == other.isInit);
 
   @override
   int get hashCode =>
@@ -70,7 +76,8 @@ class Group {
       type.hashCode ^
       privacy.hashCode ^
       description.hashCode ^
-      photoUrl.hashCode;
+      photoUrl.hashCode ^
+      isInit.hashCode;
 
   factory Group.fromMap(Map<String, dynamic> map) {
     return new Group(
@@ -80,6 +87,7 @@ class Group {
       privacy: map['privacy'] as String,
       description: map['description'] as String,
       photoUrl: map['photoUrl'] as String,
+      isInit: map['isInit'] as bool,
     );
   }
 
@@ -92,6 +100,7 @@ class Group {
       'privacy': this.privacy,
       'description': this.description,
       'photoUrl': this.photoUrl,
+      'isInit': this.isInit,
     } as Map<String, dynamic>;
   }
 

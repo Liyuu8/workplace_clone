@@ -128,7 +128,7 @@ class UserRepository extends ChangeNotifier {
     }
   }
 
-  Future<bool> signUpIntoExistingOrganization(
+  Future<String> signUpIntoExistingOrganization(
     String email,
     String fullName,
     String password,
@@ -144,7 +144,7 @@ class UserRepository extends ChangeNotifier {
       final User newUser = userCredential.user;
 
       if (newUser == null) {
-        return false;
+        return null;
       }
 
       await dbManager.insertUser(
@@ -162,12 +162,12 @@ class UserRepository extends ChangeNotifier {
       _currentUser = await dbManager.getUserById(newUser.uid);
 
       _finishProgressingWithSuccess();
-      return true;
+      return newUser.uid;
     } catch (e) {
       print('sign up error caught: ${e.toString()}');
 
       _finishProgressingWithFailure();
-      return false;
+      return null;
     }
   }
 

@@ -67,6 +67,7 @@ class GroupRepository {
         privacy: groupPrivacyList.first,
         description: initialGroupDescriptionList[checkedIndex],
         photoUrl: initialGroupPhotoUrlList[checkedIndex],
+        isInit: true,
       );
       dbManager.insertGroup(newGroup, organizationId);
       dbManager.insertUserToGroup(
@@ -88,4 +89,16 @@ class GroupRepository {
   Future<List<Group>> getFollowingGroups(
           String organizationId, String appUserId) async =>
       await dbManager.getFollowingGroups(organizationId, appUserId);
+
+  Future<void> initializeInvitedUsersGroups(
+    String organizationId,
+    String userId,
+  ) async {
+    final initialGroupIds = await dbManager.getInitialGroupIds(organizationId);
+    await Future.forEach(
+      initialGroupIds,
+      (groupId) async =>
+          dbManager.insertUserToGroup(userId, groupId, organizationId),
+    );
+  }
 }

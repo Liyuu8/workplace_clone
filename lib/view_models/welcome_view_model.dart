@@ -81,13 +81,20 @@ class WelcomeViewModel extends ChangeNotifier {
         _jobTitle,
       );
 
-  Future<void> signUpIntoExistingOrganization() async =>
-      await userRepository.signUpIntoExistingOrganization(
-        _email,
-        _email.split('@').first, // TODO: fullName入力用のフォーム画面の実装
-        _password,
+  Future<void> signUpIntoExistingOrganization() async {
+    final newUserId = await userRepository.signUpIntoExistingOrganization(
+      _email,
+      _email.split('@').first, // TODO: fullName入力用のフォーム画面の実装
+      _password,
+      _invitationOrganizationId,
+    );
+    if (newUserId != null) {
+      await groupRepository.initializeInvitedUsersGroups(
         _invitationOrganizationId,
+        newUserId,
       );
+    }
+  }
 
   Future<void> logIn() async => await userRepository.logIn(_email, _password);
 
