@@ -39,7 +39,7 @@ class PostRepository {
           organizationId, currentUser.userId)),
     ];
     resultList.sort(
-      (post1, post2) => post1.postDateTime.compareTo(post2.postDateTime),
+      (post1, post2) => post2.postDateTime.compareTo(post1.postDateTime),
     );
     return resultList;
   }

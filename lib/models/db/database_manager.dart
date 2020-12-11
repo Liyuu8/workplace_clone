@@ -14,6 +14,7 @@ const GROUPS_PATH = 'groups';
 const MEMBERS_PATH = 'members';
 const POSTS_PATH = 'posts';
 const FOLLOWINGS_PATH = 'followings';
+const FOLLOWERS_PATH = 'followers';
 
 // database fields
 const ORGANIZATION_ID_FIELD = 'organizationId';
@@ -347,5 +348,48 @@ class DatabaseManager {
     final DocumentReference reference =
         _db.collection(ORGANIZATION_PATH).doc(organization.organizationId);
     await reference.update(organization.copyWith(isInit: false).toMap());
+  }
+
+  Future<void> follow(AppUser profileUser, AppUser currentUser) async {
+    await _db
+        .collection(USERS_PATH)
+        .doc(currentUser.userId)
+        .collection(FOLLOWINGS_PATH)
+        .doc(profileUser.userId)
+        .set({USER_ID_FIELD: profileUser.userId});
+    await _db
+        .collection(USERS_PATH)
+        .doc(profileUser.userId)
+        .collection(FOLLOWERS_PATH)
+        .doc(currentUser.userId)
+        .set({USER_ID_FIELD: currentUser.userId});
+  }
+
+  Future<void> unFollow(AppUser profileUser, AppUser currentUser) async {
+    await _db
+        .collection(USERS_PATH)
+        .doc(currentUser.userId)
+        .collection(FOLLOWINGS_PATH)
+        .doc(profileUser.userId)
+        .delete();
+    await _db
+        .collection(USERS_PATH)
+        .doc(profileUser.userId)
+        .collection(FOLLOWERS_PATH)
+        .doc(currentUser.userId)
+        .delete();
+  }
+
+  Future<bool> checkIsFollowing(
+    AppUser profileUser,
+    AppUser currentUser,
+  ) async {
+    final query = await _db
+        .collection(USERS_PATH)
+        .doc(currentUser.userId)
+        .collection(FOLLOWINGS_PATH)
+        .where(USER_ID_FIELD, isEqualTo: profileUser.userId)
+        .get();
+    return query.docs.length > 0;
   }
 }

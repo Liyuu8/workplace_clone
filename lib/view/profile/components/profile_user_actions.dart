@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 // generated
 import 'package:workplace_clone/generated/l10n.dart';
@@ -13,12 +14,19 @@ import 'package:workplace_clone/view/profile/components/profile_menu_chip.dart';
 // screens
 import 'package:workplace_clone/view/profile/screens/edit_profile_screen.dart';
 
+// view models
+import 'package:workplace_clone/view_models/profile_view_model.dart';
+
 class ProfileUserActions extends StatelessWidget {
   final ProfileMode profileMode;
   ProfileUserActions({@required this.profileMode});
 
   @override
   Widget build(BuildContext context) {
+    final profileViewModel =
+        Provider.of<ProfileViewModel>(context, listen: false);
+    final isFollowing = profileViewModel.isFollowing;
+
     return Row(
       children: profileMode == ProfileMode.MYSELF
           ? [
@@ -50,13 +58,17 @@ class ProfileUserActions extends StatelessWidget {
             ]
           : [
               Expanded(
-                child: ProfileMenuChip(
-                  iconData: Icons.add_box,
-                  menuText: S.of(context).follow,
-                  onPressed: () => Fluttertoast.showToast(
-                    msg: S.of(context).comingSoon,
-                  ), // TODO: ユーザーフォロー機能
-                ),
+                child: isFollowing
+                    ? ProfileMenuChip(
+                        iconData: Icons.indeterminate_check_box,
+                        menuText: S.of(context).unFollow,
+                        onPressed: () => _unFollowProfileUser(context),
+                      )
+                    : ProfileMenuChip(
+                        iconData: Icons.add_box,
+                        menuText: S.of(context).follow,
+                        onPressed: () => _followProfileUser(context),
+                      ),
               ),
               Expanded(
                 child: ProfileMenuChip(
@@ -94,5 +106,15 @@ class ProfileUserActions extends StatelessWidget {
       context,
       MaterialPageRoute(builder: (_) => EditProfileScreen()),
     );
+  }
+
+  _followProfileUser(BuildContext context) {
+    final profileViewModel = context.read<ProfileViewModel>();
+    profileViewModel.followProfileUser();
+  }
+
+  _unFollowProfileUser(BuildContext context) {
+    final profileViewModel = context.read<ProfileViewModel>();
+    profileViewModel.unFollowProfileUser();
   }
 }

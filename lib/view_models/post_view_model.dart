@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 // data models
 import 'package:workplace_clone/data_models/app_user.dart';
 import 'package:workplace_clone/data_models/organization.dart';
-import 'package:workplace_clone/data_models/post.dart';
 
 // repositories
 import 'package:workplace_clone/models/repositories/group_repository.dart';
@@ -70,12 +69,4 @@ class PostViewModel extends ChangeNotifier {
     );
     _finishProcessing();
   }
-
-  Future<List<String>> getPostUserInfoAndPostedGroupName(Post post) async => [
-        ...(await userRepository.getUserPhotoUrlAndFullName(post.userId)),
-        post.groupId != ''
-            ? await postRepository.getGroupNameById(
-                usersOrganization.organizationId, post.groupId)
-            : '',
-      ];
 }

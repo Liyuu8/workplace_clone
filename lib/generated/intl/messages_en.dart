@@ -177,6 +177,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "teamsAndProjectsDetail" : MessageLookupByLibrary.simpleMessage("A space for smaller to work, with up to 250 members plus its own char"),
     "top" : MessageLookupByLibrary.simpleMessage("Top"),
     "typeEmail" : MessageLookupByLibrary.simpleMessage("Type an email address"),
+    "unFollow" : MessageLookupByLibrary.simpleMessage("UnFollow"),
     "useDifferentEmail" : MessageLookupByLibrary.simpleMessage("USE A DIFFERENT EMAIL ADDRESS"),
     "viewOrgChart" : MessageLookupByLibrary.simpleMessage("View Org Chart"),
     "visibilitySettings" : MessageLookupByLibrary.simpleMessage("Visibility Settings"),

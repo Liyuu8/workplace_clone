@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 // data models
 import 'package:workplace_clone/data_models/app_user.dart';
 import 'package:workplace_clone/data_models/group.dart';
+import 'package:workplace_clone/data_models/group_info.dart';
 import 'package:workplace_clone/data_models/organization.dart';
 import 'package:workplace_clone/data_models/post.dart';
+import 'package:workplace_clone/data_models/post_info.dart';
 
 // repositories
 import 'package:workplace_clone/models/repositories/group_repository.dart';
@@ -33,9 +35,6 @@ class FeedViewModel extends ChangeNotifier {
   List<Group> _groups = [];
   List<Group> get groups => _groups;
 
-  Map<String, List<String>> _groupMemberUserIds = {};
-  Map<String, List<String>> get groupMemberUserIds => _groupMemberUserIds;
-
   List<Post> _posts = [];
   List<Post> get posts => _posts;
 
@@ -63,7 +62,9 @@ class FeedViewModel extends ChangeNotifier {
   Future<void> getMyselfAndFollowingUsersAndGroupPosts() async {
     _startProcessing();
     _posts = await postRepository.getMyselfAndFollowingUsersAndGroupPosts(
-        _usersOrganization.organizationId, _currentUser);
+      _usersOrganization.organizationId,
+      _currentUser,
+    );
     _finishProcessing();
   }
 
@@ -74,13 +75,24 @@ class FeedViewModel extends ChangeNotifier {
     _finishProcessing();
   }
 
-  Future<Map<String, List<String>>> getGroupMemberUserIds() async {
-    await Future.forEach(
-      _groups,
-      (Group group) async => _groupMemberUserIds[group.groupId] =
-          await groupRepository.getGroupMemberUserIds(
-              _usersOrganization.organizationId, group.groupId),
-    );
-    return _groupMemberUserIds;
-  }
+  Future<List<GroupInfo>> getGroupInfo() async => await Future.forEach(
+        _groups,
+        (Group group) async => GroupInfo(
+          groupId: group.groupId,
+          memberUserIds: await groupRepository.getGroupMemberUserIds(
+            _usersOrganization.organizationId,
+            group.groupId,
+          ),
+        ),
+      );
+
+  Future<PostInfo> getPostInfo(Post post) async => PostInfo(
+        postUser: await userRepository.getPostUser(post.userId),
+        postedGroupName: post.groupId != ''
+            ? await postRepository.getGroupNameById(
+                usersOrganization.organizationId,
+                post.groupId,
+              )
+            : '',
+      );
 }

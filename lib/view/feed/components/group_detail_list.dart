@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 // data models
 import 'package:workplace_clone/data_models/group.dart';
+import 'package:workplace_clone/data_models/group_info.dart';
 
 // utils
 import 'package:workplace_clone/utils/constants.dart';
@@ -20,21 +21,27 @@ class GroupDetailList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final feedViewModel = Provider.of<FeedViewModel>(context, listen: false);
+
     return FutureBuilder(
-      future: feedViewModel.getGroupMemberUserIds(),
-      builder: (context, AsyncSnapshot<Map<String, List<String>>> snapshot) =>
+      future: feedViewModel.getGroupInfo(),
+      builder: (context, AsyncSnapshot<List<GroupInfo>> snapshot) =>
           snapshot.hasData && snapshot.data != null
               ? ListView.builder(
                   itemCount: feedViewModel.groups.length,
                   itemBuilder: (context, index) {
                     final group = feedViewModel.groups[index];
-                    final memberUserIds = snapshot.data[group.groupId];
+                    final memberNumber = snapshot.data
+                        .firstWhere(
+                          (groupInfo) => groupInfo.groupId == group.groupId,
+                        )
+                        .memberUserIds
+                        .length;
                     return InkWell(
                       onTap: () => _openPostScreen(context, group),
                       child: GroupDetailCard(
                         title: group.name,
                         subTitle: '${group.privacy} group･'
-                            '${memberUserIds.length.toString()} member',
+                            '${memberNumber.toString()} member',
                         photoUrl: group.photoUrl,
                       ),
                     );

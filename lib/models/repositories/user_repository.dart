@@ -204,15 +204,21 @@ class UserRepository extends ChangeNotifier {
     auth.signOut();
   }
 
-  Future<List<String>> getUserPhotoUrlAndFullName(String userId) async {
-    final user = await dbManager.getUserById(userId);
-    return [user.photoUrl, user.fullName];
-  }
+  Future<AppUser> getPostUser(String userId) async =>
+      await dbManager.getUserById(userId);
 
   Future<bool> isOrganizationExisted(String organizationId) async =>
       dbManager.isOrganizationExisted(organizationId);
 
-  Future<void> initializeCompleted() async {
-    await dbManager.initializeCompleted(_usersOrganization);
-  }
+  Future<void> initializeCompleted() async =>
+      await dbManager.initializeCompleted(_usersOrganization);
+
+  Future<void> follow(AppUser profileUser) async =>
+      await dbManager.follow(profileUser, currentUser);
+
+  Future<void> unFollow(AppUser profileUser) async =>
+      await dbManager.unFollow(profileUser, currentUser);
+
+  Future<bool> checkIsFollowing(AppUser profileUser) async =>
+      await dbManager.checkIsFollowing(profileUser, currentUser);
 }

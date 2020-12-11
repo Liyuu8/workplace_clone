@@ -135,6 +135,7 @@
   "editProfile": "Edit Profile",
   "activityLog": "Activity Log",
   "follow": "Follow",
+  "unFollow": "UnFollow",
   "message": "Message",
   "sendThanks": "Send Thanks",
   "worksAt": "Works at ",
