@@ -90,8 +90,15 @@ class AppUser {
 
 }
 
-class PostUserInfo {
+class PostInfo {
   final AppUser postUser;
   final String postedGroupName;
-  PostUserInfo({this.postUser, this.postedGroupName});
+  final List<String> likeUserNameList;
+  final bool isLikedToThisPost;
+  PostInfo({
+    this.postUser,
+    this.postedGroupName,
+    this.likeUserNameList,
+    this.isLikedToThisPost,
+  });
 }

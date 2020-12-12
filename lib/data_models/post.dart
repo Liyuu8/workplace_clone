@@ -99,3 +99,9 @@ class Post {
 //</editor-fold>
 
 }
+
+class PostLikeInfo {
+  final List<String> likeUserNameList;
+  final bool isLikedToThisPost;
+  PostLikeInfo({this.likeUserNameList, this.isLikedToThisPost});
+}

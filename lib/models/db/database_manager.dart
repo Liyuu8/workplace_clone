@@ -421,7 +421,7 @@ class DatabaseManager {
             (QuerySnapshot snapshot) => snapshot.docs.first.reference.delete(),
           );
 
-  Future<List<Like>> getLikeResult(
+  Future<List<Like>> getPostLikes(
     String organizationId,
     String likedPostId,
   ) async {

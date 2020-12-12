@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 
 // data models
 import 'package:workplace_clone/data_models/app_user.dart';
-import 'package:workplace_clone/data_models/like.dart';
 import 'package:workplace_clone/data_models/post.dart';
 
 // generated
@@ -21,6 +20,7 @@ import 'package:workplace_clone/utils/styles.dart';
 // components
 import 'package:workplace_clone/view/common/components/circle_photo.dart';
 import 'package:workplace_clone/view/post/components/post_card_button.dart';
+import 'package:workplace_clone/view/post/components/post_card_like_info.dart';
 
 // screens
 import 'package:workplace_clone/view/profile/screens/profile_screen.dart';
@@ -38,7 +38,10 @@ class PostCardTile extends StatelessWidget {
 
     return FutureBuilder(
       future: feedViewModel.getPostInfo(post),
-      builder: (context, AsyncSnapshot<PostUserInfo> snapshot) =>
+      builder: (
+        context,
+        AsyncSnapshot<PostInfo> snapshot,
+      ) =>
           snapshot.hasData && snapshot.data != null
               ? Container(
                   color: Colors.white,
@@ -109,6 +112,16 @@ class PostCardTile extends StatelessWidget {
                           ),
                         ),
                       ),
+                      snapshot.data.likeUserNameList.length != 0
+                          ? Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                              child: PostCardLikeInfo(
+                                likeUserNameList:
+                                    snapshot.data.likeUserNameList,
+                              ),
+                            )
+                          : Container(),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: Divider(),
@@ -116,36 +129,23 @@ class PostCardTile extends StatelessWidget {
                       Row(
                         children: [
                           Expanded(
-                            child: FutureBuilder(
-                              future: feedViewModel.getLikeResult(post.postId),
-                              builder: (
-                                context,
-                                AsyncSnapshot<LikeResult> snapshot,
-                              ) =>
-                                  snapshot.hasData && snapshot.data != null
-                                      ? snapshot.data.isLikedToThisPost
-                                          ? PostCardButton(
-                                              iconData: FontAwesomeIcons
-                                                  .solidThumbsUp,
-                                              buttonText: S.of(context).like,
-                                              onTap: () =>
-                                                  !feedViewModel.isProcessing
-                                                      ? _unLikeIt(context)
-                                                      : null,
-                                              withColor: true,
-                                            )
-                                          : PostCardButton(
-                                              iconData:
-                                                  FontAwesomeIcons.thumbsUp,
-                                              buttonText: S.of(context).like,
-                                              onTap: () =>
-                                                  !feedViewModel.isProcessing
-                                                      ? _likeIt(context)
-                                                      : null,
-                                              withColor: false,
-                                            )
-                                      : Container(),
-                            ),
+                            child: snapshot.data.isLikedToThisPost
+                                ? PostCardButton(
+                                    iconData: FontAwesomeIcons.solidThumbsUp,
+                                    buttonText: S.of(context).like,
+                                    onTap: () => !feedViewModel.isProcessing
+                                        ? _unLikeIt(context)
+                                        : null,
+                                    withColor: true,
+                                  )
+                                : PostCardButton(
+                                    iconData: FontAwesomeIcons.thumbsUp,
+                                    buttonText: S.of(context).like,
+                                    onTap: () => !feedViewModel.isProcessing
+                                        ? _likeIt(context)
+                                        : null,
+                                    withColor: false,
+                                  ),
                           ),
                           Expanded(
                             child: PostCardButton(
