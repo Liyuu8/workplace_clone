@@ -83,45 +83,4 @@ class FeedViewModel extends ChangeNotifier {
           ),
         ),
       );
-
-  Future<PostInfo> getPostInfo(Post post) async {
-    final postLikeInfo = await postRepository.getPostLikeInfo(
-      _usersOrganization.organizationId,
-      post.postId,
-      _currentUser,
-    );
-    return PostInfo(
-      postUser: await userRepository.getPostUser(post.userId),
-      postedGroupName: post.groupId != ''
-          ? await postRepository.getGroupNameById(
-              usersOrganization.organizationId,
-              post.groupId,
-            )
-          : '',
-      isLikedToThisPost: postLikeInfo.isLikedToThisPost,
-      likeUserNameList: postLikeInfo.likeUserNameList,
-    );
-  }
-
-  Future<void> likeIt(Post post) async {
-    _isProcessing = true;
-    await postRepository.likeIt(
-      _usersOrganization.organizationId,
-      post,
-      _currentUser,
-    );
-    _isProcessing = false;
-    notifyListeners();
-  }
-
-  Future<void> unLikeIt(Post post) async {
-    _isProcessing = true;
-    await postRepository.unLikeIt(
-      _usersOrganization.organizationId,
-      post,
-      _currentUser,
-    );
-    _isProcessing = false;
-    notifyListeners();
-  }
 }

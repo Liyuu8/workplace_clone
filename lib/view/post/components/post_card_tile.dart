@@ -26,7 +26,7 @@ import 'package:workplace_clone/view/post/components/post_card_like_info.dart';
 import 'package:workplace_clone/view/profile/screens/profile_screen.dart';
 
 // view models
-import 'package:workplace_clone/view_models/feed_view_model.dart';
+import 'package:workplace_clone/view_models/post_view_model.dart';
 
 class PostCardTile extends StatelessWidget {
   final Post post;
@@ -34,143 +34,145 @@ class PostCardTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final feedViewModel = Provider.of<FeedViewModel>(context, listen: false);
-
-    return FutureBuilder(
-      future: feedViewModel.getPostInfo(post),
-      builder: (
-        context,
-        AsyncSnapshot<PostInfo> snapshot,
-      ) =>
-          snapshot.hasData && snapshot.data != null
-              ? Container(
-                  color: Colors.white,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ListTile(
-                        leading: InkWell(
-                          onTap: () => _openProfileScreen(
-                            context,
-                            feedViewModel.currentUser,
-                            snapshot.data.postUser,
+    return Consumer<PostViewModel>(
+      builder: (context, model, child) => FutureBuilder(
+        future: model.getPostInfo(post),
+        builder: (
+          context,
+          AsyncSnapshot<PostInfo> snapshot,
+        ) =>
+            snapshot.hasData && snapshot.data != null
+                ? Container(
+                    color: Colors.white,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ListTile(
+                          leading: InkWell(
+                            onTap: () => _openProfileScreen(
+                              context,
+                              model.currentUser,
+                              snapshot.data.postUser,
+                            ),
+                            child: CirclePhoto(
+                              photoUrl: snapshot.data.postUser.photoUrl,
+                              isImageFromFile: false,
+                              initialLetter: snapshot.data.postUser.fullName
+                                  .substring(0, 1),
+                              initialLetterTextStyle: kPostIconInitialTextStyle,
+                              radius: 20.0,
+                            ),
                           ),
-                          child: CirclePhoto(
-                            photoUrl: snapshot.data.postUser.photoUrl,
-                            isImageFromFile: false,
-                            initialLetter:
-                                snapshot.data.postUser.fullName.substring(0, 1),
-                            initialLetterTextStyle: kPostIconInitialTextStyle,
-                            radius: 20.0,
+                          title: Padding(
+                            padding: const EdgeInsets.only(bottom: 4.0),
+                            child: Wrap(
+                              children: [
+                                Text(
+                                  snapshot.data.postUser.fullName,
+                                  style: kMainLabelTextStyle,
+                                ),
+                                SizedBox(width: 0.5),
+                                Icon(Icons.arrow_right),
+                                SizedBox(width: 0.5),
+                                Text(
+                                  snapshot.data.postedGroupName,
+                                  style: kMainLabelTextStyle,
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        title: Padding(
-                          padding: const EdgeInsets.only(bottom: 4.0),
-                          child: Wrap(
+                          subtitle: Row(
                             children: [
                               Text(
-                                snapshot.data.postUser.fullName,
-                                style: kMainLabelTextStyle,
+                                createTimeAgoString(post.postDateTime),
+                                style: kDetailLabelTextStyle,
                               ),
-                              SizedBox(width: 0.5),
-                              Icon(Icons.arrow_right),
-                              SizedBox(width: 0.5),
-                              Text(
-                                snapshot.data.postedGroupName,
-                                style: kMainLabelTextStyle,
-                              ),
+                              SizedBox(width: 5.0),
+                              Icon(Icons.group, size: 16.0),
                             ],
                           ),
-                        ),
-                        subtitle: Row(
-                          children: [
-                            Text(
-                              createTimeAgoString(post.postDateTime) + '  •  ',
-                              style: kDetailLabelTextStyle,
+                          trailing: IconButton(
+                            icon: Icon(Icons.more_horiz),
+                            onPressed: () => Fluttertoast.showToast(
+                              msg: S.of(context).notImplement,
                             ),
-                            Icon(Icons.group, size: 16.0),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () => Fluttertoast.showToast(
+                            msg: S.of(context).comingSoon,
+                          ),
+                          // TODO: RichTextの実装
+                          // https://github.com/Liyuu8/insta_clone/blob/master/lib/view/common/components/comment_rich_text.dart
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(
+                              post.content,
+                              style: kPostContentTextStyle,
+                            ),
+                          ),
+                        ),
+                        snapshot.data.likeUserNameList.length != 0
+                            ? Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16.0,
+                                ),
+                                child: PostCardLikeInfo(
+                                  likeUserNameList:
+                                      snapshot.data.likeUserNameList,
+                                ),
+                              )
+                            : Container(),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Divider(),
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: snapshot.data.isLikedToThisPost
+                                  ? PostCardButton(
+                                      iconData: FontAwesomeIcons.solidThumbsUp,
+                                      buttonText: S.of(context).like,
+                                      onTap: () => !model.isProcessing
+                                          ? _unLikeIt(context, model)
+                                          : null,
+                                      withColor: true,
+                                    )
+                                  : PostCardButton(
+                                      iconData: FontAwesomeIcons.thumbsUp,
+                                      buttonText: S.of(context).like,
+                                      onTap: () => !model.isProcessing
+                                          ? _likeIt(context, model)
+                                          : null,
+                                      withColor: false,
+                                    ),
+                            ),
+                            Expanded(
+                              child: PostCardButton(
+                                iconData: FontAwesomeIcons.comment,
+                                buttonText: S.of(context).comment,
+                                onTap: () => Fluttertoast.showToast(
+                                  msg: S.of(context).comingSoon,
+                                ), // TODO: コメント機能の実装
+                              ),
+                            ),
+                            Expanded(
+                              child: PostCardButton(
+                                iconData: FontAwesomeIcons.share,
+                                buttonText: S.of(context).share,
+                                onTap: () => Fluttertoast.showToast(
+                                  msg: S.of(context).comingSoon,
+                                ), // TODO: 共有機能の実装
+                              ),
+                            ),
                           ],
                         ),
-                        trailing: IconButton(
-                          icon: Icon(Icons.more_horiz),
-                          onPressed: () => Fluttertoast.showToast(
-                            msg: S.of(context).notImplement,
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () => Fluttertoast.showToast(
-                          msg: S.of(context).comingSoon,
-                        ),
-                        // TODO: RichTextの実装
-                        // https://github.com/Liyuu8/insta_clone/blob/master/lib/view/common/components/comment_rich_text.dart
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Text(
-                            post.content,
-                            style: kPostContentTextStyle,
-                          ),
-                        ),
-                      ),
-                      snapshot.data.likeUserNameList.length != 0
-                          ? Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16.0),
-                              child: PostCardLikeInfo(
-                                likeUserNameList:
-                                    snapshot.data.likeUserNameList,
-                              ),
-                            )
-                          : Container(),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Divider(),
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: snapshot.data.isLikedToThisPost
-                                ? PostCardButton(
-                                    iconData: FontAwesomeIcons.solidThumbsUp,
-                                    buttonText: S.of(context).like,
-                                    onTap: () => !feedViewModel.isProcessing
-                                        ? _unLikeIt(context)
-                                        : null,
-                                    withColor: true,
-                                  )
-                                : PostCardButton(
-                                    iconData: FontAwesomeIcons.thumbsUp,
-                                    buttonText: S.of(context).like,
-                                    onTap: () => !feedViewModel.isProcessing
-                                        ? _likeIt(context)
-                                        : null,
-                                    withColor: false,
-                                  ),
-                          ),
-                          Expanded(
-                            child: PostCardButton(
-                              iconData: FontAwesomeIcons.comment,
-                              buttonText: S.of(context).comment,
-                              onTap: () => Fluttertoast.showToast(
-                                msg: S.of(context).comingSoon,
-                              ), // TODO: コメント機能の実装
-                            ),
-                          ),
-                          Expanded(
-                            child: PostCardButton(
-                              iconData: FontAwesomeIcons.share,
-                              buttonText: S.of(context).share,
-                              onTap: () => Fluttertoast.showToast(
-                                msg: S.of(context).comingSoon,
-                              ), // TODO: 共有機能の実装
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                )
-              : Container(),
+                      ],
+                    ),
+                  )
+                : Container(),
+      ),
     );
   }
 
@@ -192,13 +194,9 @@ class PostCardTile extends StatelessWidget {
     );
   }
 
-  _likeIt(BuildContext context) async {
-    final feedViewModel = context.read<FeedViewModel>();
-    await feedViewModel.likeIt(post);
-  }
+  _likeIt(BuildContext context, PostViewModel postViewModel) async =>
+      await postViewModel.likeIt(post);
 
-  _unLikeIt(BuildContext context) async {
-    final feedViewModel = context.read<FeedViewModel>();
-    await feedViewModel.unLikeIt(post);
-  }
+  _unLikeIt(BuildContext context, PostViewModel postViewModel) async =>
+      await postViewModel.unLikeIt(post);
 }

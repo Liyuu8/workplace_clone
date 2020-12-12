@@ -90,7 +90,9 @@ class ProfileScreen extends StatelessWidget {
                         height: 8.0,
                         child: Container(color: Colors.black12),
                       ),
-                      CreatePostCard(postUser: model.profileUser),
+                      profileMode == ProfileMode.MYSELF
+                          ? CreatePostCard(postUser: model.profileUser)
+                          : Container(),
                       SizedBox(
                         height: 8.0,
                         child: Container(color: Colors.black12),
