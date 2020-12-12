@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:workplace_clone/data_models/app_user.dart';
 
 // data models
+import 'package:workplace_clone/data_models/app_user.dart';
+import 'package:workplace_clone/data_models/like.dart';
 import 'package:workplace_clone/data_models/post.dart';
 
 // generated
@@ -114,17 +116,40 @@ class PostCardTile extends StatelessWidget {
                       Row(
                         children: [
                           Expanded(
-                            child: PostCardButton(
-                              iconData: Icons.thumb_up,
-                              buttonText: S.of(context).like,
-                              onTap: () => Fluttertoast.showToast(
-                                msg: S.of(context).comingSoon,
-                              ), // TODO: いいね機能の実装
+                            child: FutureBuilder(
+                              future: feedViewModel.getLikeResult(post.postId),
+                              builder: (
+                                context,
+                                AsyncSnapshot<LikeResult> snapshot,
+                              ) =>
+                                  snapshot.hasData && snapshot.data != null
+                                      ? snapshot.data.isLikedToThisPost
+                                          ? PostCardButton(
+                                              iconData: FontAwesomeIcons
+                                                  .solidThumbsUp,
+                                              buttonText: S.of(context).like,
+                                              onTap: () =>
+                                                  !feedViewModel.isProcessing
+                                                      ? _unLikeIt(context)
+                                                      : null,
+                                              withColor: true,
+                                            )
+                                          : PostCardButton(
+                                              iconData:
+                                                  FontAwesomeIcons.thumbsUp,
+                                              buttonText: S.of(context).like,
+                                              onTap: () =>
+                                                  !feedViewModel.isProcessing
+                                                      ? _likeIt(context)
+                                                      : null,
+                                              withColor: false,
+                                            )
+                                      : Container(),
                             ),
                           ),
                           Expanded(
                             child: PostCardButton(
-                              iconData: Icons.comment,
+                              iconData: FontAwesomeIcons.comment,
                               buttonText: S.of(context).comment,
                               onTap: () => Fluttertoast.showToast(
                                 msg: S.of(context).comingSoon,
@@ -133,7 +158,7 @@ class PostCardTile extends StatelessWidget {
                           ),
                           Expanded(
                             child: PostCardButton(
-                              iconData: Icons.share,
+                              iconData: FontAwesomeIcons.share,
                               buttonText: S.of(context).share,
                               onTap: () => Fluttertoast.showToast(
                                 msg: S.of(context).comingSoon,
@@ -165,5 +190,15 @@ class PostCardTile extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _likeIt(BuildContext context) async {
+    final feedViewModel = context.read<FeedViewModel>();
+    await feedViewModel.likeIt(post);
+  }
+
+  _unLikeIt(BuildContext context) async {
+    final feedViewModel = context.read<FeedViewModel>();
+    await feedViewModel.unLikeIt(post);
   }
 }

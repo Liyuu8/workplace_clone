@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PostCardButton extends StatelessWidget {
   final IconData iconData;
   final String buttonText;
   final VoidCallback onTap;
+  final bool withColor;
   PostCardButton({
     @required this.iconData,
     @required this.buttonText,
     @required this.onTap,
+    this.withColor = false,
   });
 
   @override
@@ -20,9 +23,13 @@ class PostCardButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(iconData),
+            withColor
+                ? FaIcon(iconData, color: Colors.blueAccent)
+                : FaIcon(iconData),
             SizedBox(width: 8.0),
-            Text(buttonText),
+            withColor
+                ? Text(buttonText, style: TextStyle(color: Colors.blueAccent))
+                : Text(buttonText),
           ],
         ),
       ),

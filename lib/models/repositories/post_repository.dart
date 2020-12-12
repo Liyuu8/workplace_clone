@@ -2,6 +2,7 @@ import 'package:uuid/uuid.dart';
 
 // data models
 import 'package:workplace_clone/data_models/app_user.dart';
+import 'package:workplace_clone/data_models/like.dart';
 import 'package:workplace_clone/data_models/post.dart';
 
 // db
@@ -51,4 +52,43 @@ class PostRepository {
   Future<List<Post>> getProfileUserPosts(
           String organizationId, AppUser profileUser) async =>
       await dbManager.getProfileUserPosts(organizationId, profileUser.userId);
+
+  Future<void> likeIt(
+    String organizationId,
+    Post post,
+    AppUser currentUser,
+  ) async =>
+      await dbManager.likeIt(
+        organizationId,
+        Like(
+          likeId: Uuid().v1(),
+          likedPostId: post.postId,
+          likeUserId: currentUser.userId,
+          likeDateTime: DateTime.now(),
+        ),
+      );
+
+  Future<void> unLikeIt(
+    String organizationId,
+    Post post,
+    AppUser currentUser,
+  ) async =>
+      await dbManager.unLikeIt(organizationId, post, currentUser);
+
+  Future<LikeResult> getLikeResult(
+    String organizationId,
+    String likedPostId,
+    AppUser currentUser,
+  ) async {
+    // 「いいね」の取得
+    final likes = await dbManager.getLikeResult(organizationId, likedPostId);
+
+    // 自分が「いいね」したものを取得
+    return LikeResult(
+      likes: likes,
+      isLikedToThisPost: likes.any(
+        (like) => like.likeUserId == currentUser.userId,
+      ),
+    );
+  }
 }

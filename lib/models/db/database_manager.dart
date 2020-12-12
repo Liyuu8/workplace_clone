@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 // data models
 import 'package:workplace_clone/data_models/app_user.dart';
 import 'package:workplace_clone/data_models/group.dart';
+import 'package:workplace_clone/data_models/like.dart';
 import 'package:workplace_clone/data_models/organization.dart';
 import 'package:workplace_clone/data_models/post.dart';
 
@@ -11,6 +12,7 @@ import 'package:workplace_clone/data_models/post.dart';
 const ORGANIZATION_PATH = 'organizations';
 const USERS_PATH = 'users';
 const GROUPS_PATH = 'groups';
+const LIKES_PATH = 'likes';
 const MEMBERS_PATH = 'members';
 const POSTS_PATH = 'posts';
 const FOLLOWINGS_PATH = 'followings';
@@ -21,6 +23,9 @@ const ORGANIZATION_ID_FIELD = 'organizationId';
 const USER_ID_FIELD = 'userId';
 const GROUP_ID_FIELD = 'groupId';
 const IS_INIT_FIELD = 'isInit';
+const LIKE_USER_ID = 'likeUserId';
+const LIKE_DATA_TIME = 'likeDateTime';
+const LIKED_POST_ID = 'likedPostId';
 const POST_ID_FIELD = 'postId';
 const POST_DATE_TIME_FIELD = 'postDateTime';
 
@@ -391,5 +396,57 @@ class DatabaseManager {
         .where(USER_ID_FIELD, isEqualTo: profileUser.userId)
         .get();
     return query.docs.length > 0;
+  }
+
+  Future<void> likeIt(String organizationId, Like like) async => await _db
+      .collection(ORGANIZATION_PATH)
+      .doc(organizationId)
+      .collection(LIKES_PATH)
+      .doc(like.likeId)
+      .set(like.toMap());
+
+  Future<void> unLikeIt(
+    String organizationId,
+    Post post,
+    AppUser currentUser,
+  ) async =>
+      await _db
+          .collection(ORGANIZATION_PATH)
+          .doc(organizationId)
+          .collection(LIKES_PATH)
+          .where(LIKED_POST_ID, isEqualTo: post.postId)
+          .where(LIKE_USER_ID, isEqualTo: currentUser.userId)
+          .get()
+          .then(
+            (QuerySnapshot snapshot) => snapshot.docs.first.reference.delete(),
+          );
+
+  Future<List<Like>> getLikeResult(
+    String organizationId,
+    String likedPostId,
+  ) async {
+    final query = await _db
+        .collection(ORGANIZATION_PATH)
+        .doc(organizationId)
+        .collection(LIKES_PATH)
+        .get();
+
+    return query.docs.length == 0
+        ? []
+        : await _db
+            .collection(ORGANIZATION_PATH)
+            .doc(organizationId)
+            .collection(LIKES_PATH)
+            .where(LIKED_POST_ID, isEqualTo: likedPostId)
+            .orderBy(LIKE_DATA_TIME)
+            .get()
+            .then(
+              (QuerySnapshot querySnapshot) => querySnapshot.docs
+                  .map(
+                    (DocumentSnapshot snapshot) =>
+                        Like.fromMap(snapshot.data()),
+                  )
+                  .toList(),
+            );
   }
 }

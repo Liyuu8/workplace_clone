@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 // data models
 import 'package:workplace_clone/data_models/app_user.dart';
 import 'package:workplace_clone/data_models/group.dart';
+import 'package:workplace_clone/data_models/like.dart';
 import 'package:workplace_clone/data_models/organization.dart';
 import 'package:workplace_clone/data_models/post.dart';
 
@@ -92,5 +93,34 @@ class FeedViewModel extends ChangeNotifier {
                 post.groupId,
               )
             : '',
+      );
+
+  Future<void> likeIt(Post post) async {
+    _isProcessing = true;
+    await postRepository.likeIt(
+      _usersOrganization.organizationId,
+      post,
+      _currentUser,
+    );
+    _isProcessing = false;
+    notifyListeners();
+  }
+
+  Future<void> unLikeIt(Post post) async {
+    _isProcessing = true;
+    await postRepository.unLikeIt(
+      _usersOrganization.organizationId,
+      post,
+      _currentUser,
+    );
+    _isProcessing = false;
+    notifyListeners();
+  }
+
+  Future<LikeResult> getLikeResult(String likedPostId) async =>
+      await postRepository.getLikeResult(
+        _usersOrganization.organizationId,
+        likedPostId,
+        _currentUser,
       );
 }

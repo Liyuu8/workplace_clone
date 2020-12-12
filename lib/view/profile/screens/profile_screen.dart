@@ -85,6 +85,7 @@ class ProfileScreen extends StatelessWidget {
                       ProfileUserSkills(),
                       Divider(),
                       ProfileUserGroups(userGroupNumber: model.groups.length),
+                      Divider(),
                       SizedBox(
                         height: 8.0,
                         child: Container(color: Colors.black12),
