@@ -89,3 +89,9 @@ class AppUser {
 //</editor-fold>
 
 }
+
+class PostUserInfo {
+  final AppUser postUser;
+  final String postedGroupName;
+  PostUserInfo({this.postUser, this.postedGroupName});
+}

@@ -107,3 +107,9 @@ class Group {
 //</editor-fold>
 
 }
+
+class GroupInfo {
+  final String groupId;
+  final List<String> memberUserIds;
+  GroupInfo({this.groupId, this.memberUserIds});
+}

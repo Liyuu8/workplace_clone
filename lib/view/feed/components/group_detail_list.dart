@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 
 // data models
 import 'package:workplace_clone/data_models/group.dart';
-import 'package:workplace_clone/data_models/group_info.dart';
 
 // utils
 import 'package:workplace_clone/utils/constants.dart';

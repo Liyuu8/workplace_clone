@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 // data models
 import 'package:workplace_clone/data_models/app_user.dart';
 import 'package:workplace_clone/data_models/group.dart';
-import 'package:workplace_clone/data_models/group_info.dart';
 import 'package:workplace_clone/data_models/organization.dart';
 import 'package:workplace_clone/data_models/post.dart';
-import 'package:workplace_clone/data_models/post_info.dart';
 
 // repositories
 import 'package:workplace_clone/models/repositories/group_repository.dart';
@@ -86,7 +84,7 @@ class FeedViewModel extends ChangeNotifier {
         ),
       );
 
-  Future<PostInfo> getPostInfo(Post post) async => PostInfo(
+  Future<PostUserInfo> getPostInfo(Post post) async => PostUserInfo(
         postUser: await userRepository.getPostUser(post.userId),
         postedGroupName: post.groupId != ''
             ? await postRepository.getGroupNameById(

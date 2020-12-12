@@ -5,7 +5,6 @@ import 'package:workplace_clone/data_models/app_user.dart';
 
 // data models
 import 'package:workplace_clone/data_models/post.dart';
-import 'package:workplace_clone/data_models/post_info.dart';
 
 // generated
 import 'package:workplace_clone/generated/l10n.dart';
@@ -37,7 +36,7 @@ class PostCardTile extends StatelessWidget {
 
     return FutureBuilder(
       future: feedViewModel.getPostInfo(post),
-      builder: (context, AsyncSnapshot<PostInfo> snapshot) =>
+      builder: (context, AsyncSnapshot<PostUserInfo> snapshot) =>
           snapshot.hasData && snapshot.data != null
               ? Container(
                   color: Colors.white,
