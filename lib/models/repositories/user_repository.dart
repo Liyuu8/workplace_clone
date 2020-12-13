@@ -202,6 +202,7 @@ class UserRepository extends ChangeNotifier {
 
   Future<void> signOut() async {
     auth.signOut();
+    _currentUser = null;
   }
 
   Future<AppUser> getPostUser(String userId) async =>

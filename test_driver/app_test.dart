@@ -22,7 +22,7 @@ void main() {
       // final signUpCompletedText = find.byValueKey('sign_up_completed_text');
       // final signUpFailedText = find.byValueKey('sign_up_failed_text');
       final logInCompletedText = find.byValueKey('log_in_completed_text');
-      final logInFailedText = find.byValueKey('log_in_failed_text');
+      // final logInFailedText = find.byValueKey('log_in_failed_text');
       final homeScreen = find.byType("HomeScreen");
 
       // https://gitmemory.com/issue/flutter/flutter/24703/668736589
@@ -57,29 +57,34 @@ void main() {
         }
       });
 
+      // test(
+      //   "log in fails with incorrect email and password",
+      //   () async {
+      //     await driver.tap(logInButton);
+      //     await driver.waitFor(enterEmailText);
+      //     await driver.tap(emailField);
+      //     await driver.enterText("test_user@sample.com");
+      //     await driver.tap(continueButton);
+      //     await driver.waitFor(enterPasswordText);
+      //     await driver.tap(passwordField);
+      //     await driver.enterText("incorrect_test_user");
+      //     await driver.tap(continueButton);
+      //     await driver.waitForAbsent(loggingInText);
+      //     assert(logInFailedText != null);
+      //     await driver.tap(continueButton);
+      //     await driver.waitUntilNoTransientCallbacks();
+      //     assert(homeScreen == null);
+      //   },
+      // );
+
       test(
-        "log in fails with incorrect email and password",
+        "logs in with correct email and password",
         () async {
           await driver.tap(logInButton);
           await driver.waitFor(enterEmailText);
           await driver.tap(emailField);
           await driver.enterText("test_user@sample.com");
           await driver.tap(continueButton);
-          await driver.waitFor(enterPasswordText);
-          await driver.tap(passwordField);
-          await driver.enterText("incorrect_test_user");
-          await driver.tap(continueButton);
-          await driver.waitForAbsent(loggingInText);
-          assert(logInFailedText != null);
-          await driver.tap(continueButton);
-          await driver.waitUntilNoTransientCallbacks();
-          assert(homeScreen == null);
-        },
-      );
-
-      test(
-        "logs in with correct email and password",
-        () async {
           await driver.waitFor(enterPasswordText);
           await driver.tap(passwordField);
           await driver.enterText("correct_test_user");
