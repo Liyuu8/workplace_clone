@@ -1,6 +1,8 @@
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 
+import 'isolates_workaround.dart';
+
 void main() {
   group(
     "Flutter Auth App Test",
@@ -23,9 +25,37 @@ void main() {
       final logInFailedText = find.byValueKey('log_in_failed_text');
       final homeScreen = find.byType("HomeScreen");
 
+      // https://gitmemory.com/issue/flutter/flutter/24703/668736589
+      // https://stackoverflow.com/questions/64797858/flutter-driver-hangs-at-splash-screen
+
       FlutterDriver driver;
-      setUpAll(() async => driver = await FlutterDriver.connect());
-      tearDownAll(() async => driver != null ? driver.close() : null);
+      IsolatesWorkaround workaround;
+
+      // Connect to the Flutter driver before running any tests.
+      setUpAll(() async {
+        print('Connecting driver');
+        driver = await FlutterDriver.connect();
+        print('Driver connected');
+
+        if (driver.appIsolate.isPaused) {
+          print('Waiting for IsolatesWorkaround to resume isolates');
+          workaround = IsolatesWorkaround(driver);
+          await workaround.resumeIsolates();
+          print('Isolates resumed');
+        }
+
+        print('Waiting for first frame to rasterize');
+        await driver.waitUntilFirstFrameRasterized();
+        print('First frame rasterized');
+      });
+
+      // Close the connection to the driver after the tests have completed.
+      tearDownAll(() async {
+        if (driver != null) {
+          await driver.close();
+          await workaround?.tearDown();
+        }
+      });
 
       test(
         "log in fails with incorrect email and password",
@@ -43,6 +73,7 @@ void main() {
           assert(logInFailedText != null);
           await driver.tap(continueButton);
           await driver.waitUntilNoTransientCallbacks();
+          assert(homeScreen == null);
         },
       );
 
@@ -61,6 +92,6 @@ void main() {
         },
       );
     },
-    timeout: Timeout(const Duration(seconds: 120)),
+    timeout: Timeout(const Duration(seconds: 180)),
   );
 }
